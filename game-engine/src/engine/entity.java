@@ -3,24 +3,30 @@ package engine;
 import processing.core.PGraphics;
 
 public abstract class entity {
-	public int x,y,size;
+	public int x,y,sizex,sizey;
 	public String name;
-	public entity(int x,int y, int size){
+	public window w;
+	public entity(int x,int y, int size,window w){
+		this(x,y,size,size,w,"unkown");
+	}
+	public entity(int x,int y, int size,window w,String name){
+		this(x,y,size,size,w,name);
+
+	}
+	
+	public entity(int x,int y, int sizex,int sizey,window w,String name){
+		this.w=w;
 		this.x=x;
 		this.y=y;
-		this.size=size;
-		name="unknown";
-	}
-	public entity(int x,int y, int size,String name){
-		this(x,y,size);
+		this.sizex=sizex;
+		this.sizey=sizey;
 		this.name=name;
 	}
 	
 	
 	public abstract void update(window w);
 	
-	void draw(PGraphics b) {
-		b.strokeWeight(2);
-		b.rect(x, y, size, size,2);
-	};
+	public abstract void draw(PGraphics b);
+	public abstract void click();
+	
 }

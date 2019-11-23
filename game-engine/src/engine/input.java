@@ -86,8 +86,8 @@ public class input {
 	}
 
 	public class mouse {
-		Boolean left = false;
-		Boolean right = false;
+		public Boolean left = false;
+		public Boolean right = false;
 		float scroll = 0;
 
 		void press(int mouseButton, boolean pressed) {
@@ -95,12 +95,28 @@ public class input {
 				left = pressed;
 			}
 			if (mouseButton == PConstants.RIGHT) {
-				left = pressed;
+				right = pressed;
 			}
 		}
 
 		void scroll(float f) {
 			scroll = f;
+		}
+
+		public int X() {
+			return Parrent.mouseX;
+		}
+
+		public int Y() {
+			return Parrent.mouseY;
+		}
+
+		public int prevX() {
+			return Parrent.pmouseX;
+		}
+
+		public int prevY() {
+			return Parrent.pmouseY;
 		}
 
 		public String toString() {

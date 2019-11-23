@@ -24,6 +24,12 @@ public class screen {
 		}
 	}
 	
+	public void click() {
+		for(entity e : entities) {
+			e.click();
+		}
+	}
+
 	public void draw(PGraphics frame) {
 		for(entity e : entities) {
 			e.draw(frame);

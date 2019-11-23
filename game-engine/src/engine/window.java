@@ -10,7 +10,7 @@ public abstract class window extends PApplet {
 	public input input = new input(this);
 	public HashMap<String, screen> screensh = new HashMap<>();
 	public String selected;
-
+	public loader Loader = new loader(this);
 	abstract public void settings();
 
 	abstract public void setup();
@@ -53,10 +53,13 @@ public abstract class window extends PApplet {
 
 	public void mousePressed() {
 		input.Mouse.press(mouseButton, true);
+		screensh.get(selected).click();
 	}
 
 	public void mouseReleased() {
 		input.Mouse.press(mouseButton, false);
+		screensh.get(selected).click();
+
 	}
 
 	public void mouseWheel(MouseEvent event) {
