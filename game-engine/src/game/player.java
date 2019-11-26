@@ -1,6 +1,7 @@
 package game;
 
 import engine.entity;
+import engine.scene;
 import engine.window;
 import engine.sprite.sprite;
 import engine.sprite.spriteGroup;
@@ -10,8 +11,8 @@ import processing.core.PImage;
 public class player extends entity {
 	sprite sprite;
 
-	public player(int x, int y, int size, window w) {
-		super(x, y, size, w, "player");
+	public player(int x, int y, int size,scene s, window w) {
+		super(x, y, size,s, w, "player");
 		sprite[] sprites= {new sprite("images/spriteGroupTest/bodyUP.png", 64, w),
 				new sprite("images/spriteGroupTest/tshitup.png", 64, w),
 				new sprite("images/spriteGroupTest/robeLegsUP.png", 64, w)};
@@ -20,8 +21,13 @@ public class player extends entity {
 		
 		
 		
-		sprite= new spriteGroup(sprites,grouppos,  spd, 64, 64, w);
-		
+//		sprite= new spriteGroup(sprites,grouppos,  spd, 64, 64, w);
+		try {
+			sprite= spriteGroup.spriteGroupJSONload(w.Loader.loadJSON("grouptest"),w);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		System.out.print(sprite);
 	}
 

@@ -16,7 +16,7 @@ public class input {
 	Boolean keymapLoaded = false;
 	public mouse Mouse = new mouse();
 
-	PApplet Parrent;
+	public PApplet Parrent;
 
 	input(PApplet p) {
 		Parrent = p;

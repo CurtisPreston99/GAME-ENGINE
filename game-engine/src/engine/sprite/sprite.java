@@ -38,7 +38,17 @@ public class sprite {
 
 	public sprite(String fname, int w, window win) {
 		this(fname,w, win.Loader.loadImage(fname).height,win);
-
+	}
+	
+	public sprite(String fname, window win) {
+		rawSprite = win.Loader.loadImage(fname);
+		PGraphics frame=win.createGraphics(rawSprite.width, rawSprite.height);
+		frame.beginDraw();
+		frame.image(rawSprite,0,0);
+		frame.endDraw();
+		
+		frames = new PGraphics[1];
+		frames[0]=frame;
 	}
 
 	void modeSelect(String mode) {

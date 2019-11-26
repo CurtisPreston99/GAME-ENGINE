@@ -8,9 +8,10 @@ import processing.event.MouseEvent;
 
 public abstract class window extends PApplet {
 	public input input = new input(this);
-	public HashMap<String, screen> screensh = new HashMap<>();
+	public HashMap<String, scene> screensh = new HashMap<>();
 	public String selected;
 	public loader Loader = new loader(this);
+
 	abstract public void settings();
 
 	abstract public void setup();
@@ -21,12 +22,19 @@ public abstract class window extends PApplet {
 
 	abstract public void mouseClick();
 
-	
-	public void addScreen(screen s) {
+	public void addScene(scene s) {
 		screensh.put(s.id, s);
 	}
 
-	public void selectScreen(String s) {
+	public scene getScene(String s) {
+		return screensh.get(s);
+	}
+	
+	public scene getSelectedScene() {
+		return screensh.get(selected);
+	}
+
+	public void selectScene(String s) {
 		selected = s;
 	}
 

@@ -1,7 +1,7 @@
 package game;
 
 import engine.loader;
-import engine.screen;
+import engine.scene;
 
 public class gameWindow extends engine.window {
 
@@ -13,10 +13,10 @@ public class gameWindow extends engine.window {
 
 	@Override
 	public void setup() {
-		screen initscreen = new screen(this, "home");
-		initscreen.addEntity(new player(150, 150, 20, this));
-		addScreen(initscreen);
-		selectScreen("home");
+		scene initscreen = new scene(this, "home");
+		initscreen.addEntity(new player(150, 150, 20, initscreen, this), "player");
+		addScene(initscreen);
+		selectScene("home");
 
 	}
 

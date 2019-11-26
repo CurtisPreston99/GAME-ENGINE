@@ -1,16 +1,36 @@
 package engine.ui;
 
 import engine.entity;
+import engine.scene;
 import engine.window;
 import processing.core.PGraphics;
 
 public class button extends UIelement {
 
-	int col = w.color(0, 255, 0);
-	Boolean pressed = false;
+	int colmain = w.color(0, 255, 0);
+	int colpressed = w.color(255, 0, 0);
+	public Boolean pressed = false;
 
-	public button(int x, int y, int sizex, int sizey, window w) {
-		super(x, y, sizex, sizey, w, "button");
+	public button(int x, int y, int sizex, int sizey, scene s, window w) {
+		super(x, y, sizex, sizey, s, w, "button");
+	}
+	
+	public button(int x, int y, int sizex, int sizey,String Name, scene s, window w) {
+		super(x, y, sizex, sizey, s, w, Name);
+	}
+
+	public button(int x, int y, int sizex, int sizey, int idle, int selected, scene s, window w) {
+		super(x, y, sizex, sizey, s, w, "button");
+		colmain = idle;
+		colpressed = selected;
+	}
+
+	public Boolean getVal() {
+		return pressed;
+	}
+
+	public void ValUpdate() {
+
 	}
 
 	@Override
@@ -21,12 +41,13 @@ public class button extends UIelement {
 
 	@Override
 	public void draw(PGraphics b) {
-		b.fill(col);
+		if (pressed) {
+			b.fill(colpressed);
+		}
 		b.rect(x, y, sizex, sizey);
-		b.textAlign(w.CENTER,w.CENTER);
+		b.textAlign(w.CENTER, w.CENTER);
 		b.fill(0);
-
-		b.text(name,x+(sizex/2),y+(sizey/2));
+		b.text(name, x + (sizex / 2), y + (sizey / 2));
 		b.fill(255);
 
 	}
@@ -36,11 +57,17 @@ public class button extends UIelement {
 		if (w.input.Mouse.left) {
 			if (w.input.Mouse.X() > x && w.input.Mouse.X() < x + sizex) {
 				if (w.input.Mouse.Y() > y && w.input.Mouse.Y() < y + sizey) {
-					col = w.color(255, 0, 0);
+					if (!pressed) {
+						pressed = true;
+						ValUpdate();
+					}
 				}
 			}
-		}else {
-			col = w.color(0, 255, 0);
+		} else {
+			if (pressed) {
+				pressed = false;
+				ValUpdate();
+			}
 		}
 	}
 

@@ -80,5 +80,20 @@ public class loader {
 			throw new Exception("JSON not well formated");
 		}
 	}
+	
+	public void save(String text,String fname) {
+		String[] contents= text.split("\n");
+		parrent.saveStrings("data/"+fname, contents);
+	}
+	
+	public void save(JSONObject jsonobj,String fname) {
+		parrent.saveJSONObject(jsonobj, "data/"+fname);
+	}
+	
+	public void save(XML xml,String fname) {
+		parrent.saveXML(xml, "data/"+fname);
+	}
+	
+	
 
 }
