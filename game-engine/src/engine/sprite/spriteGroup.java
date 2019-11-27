@@ -21,61 +21,64 @@ public class spriteGroup extends sprite {
 		this.spritelist = spritelist;
 		this.width = width;
 		this.height = height;
+
+		this.sizex = width;
+		this.sizey = height;
 	}
 
-	public static spriteGroup spriteGroupJSONload(JSONObject json, window w) {
+	public static spriteGroup JSONload(JSONObject json, window w) {
 		ArrayList<int[]> pos = new ArrayList<>();
 		ArrayList<Integer> spd = new ArrayList<>();
 		ArrayList<sprite> spritelist = new ArrayList<>();
 		int width = json.getInt("width");
 		int height = json.getInt("height");
-		JSONArray spriteList=json.getJSONArray("sprites");
+		JSONArray spriteList = json.getJSONArray("sprites");
 		int cuttoffX;
 		int cuttoffY;
-		
-		for(int i=0;i<spriteList.size();i++) {
-			JSONObject sprite=spriteList.getJSONObject(i);
-			String fileloc=sprite.getString("sprite");
+
+		for (int i = 0; i < spriteList.size(); i++) {
+			JSONObject sprite = spriteList.getJSONObject(i);
+			String fileloc = sprite.getString("sprite");
 			try {
-				cuttoffX=sprite.getInt("cutX");
+				cuttoffX = sprite.getInt("cutX");
 			} catch (Exception e) {
-				cuttoffX=-1;
+				cuttoffX = -1;
 			}
 			try {
-				cuttoffY=sprite.getInt("cutY");
+				cuttoffY = sprite.getInt("cutY");
 			} catch (Exception e) {
-				cuttoffY=-1;
+				cuttoffY = -1;
 			}
 
-			int x=sprite.getInt("X");
-			int y=sprite.getInt("Y");
-			int speed=sprite.getInt("spd");
-			
+			int x = sprite.getInt("X");
+			int y = sprite.getInt("Y");
+			int speed = sprite.getInt("spd");
+
 			sprite s = null;
-			if(cuttoffX!=-1 && cuttoffY!=-1) {
-				s = new sprite(fileloc,cuttoffX,cuttoffY,w);
+			if (cuttoffX != -1 && cuttoffY != -1) {
+				s = new sprite(fileloc, cuttoffX, cuttoffY, w);
 			}
-			if(cuttoffX!=-1 && cuttoffY==-1) {
-				s = new sprite(fileloc,cuttoffX,w);
+			if (cuttoffX != -1 && cuttoffY == -1) {
+				s = new sprite(fileloc, cuttoffX, w);
 			}
-			if(cuttoffX==-1 && cuttoffY==-1) {
-				s = new sprite(fileloc,w);
+			if (cuttoffX == -1 && cuttoffY == -1) {
+				s = new sprite(fileloc, w);
 			}
 			spritelist.add(s);
-			pos.add(new int[]{x,y});
+			pos.add(new int[] { x, y });
 			spd.add(speed);
 		}
-		int[] spdarray=new int[spd.size()];
+		int[] spdarray = new int[spd.size()];
 		sprite[] spritearray = new sprite[spritelist.size()];
-		int[][] posarray =new int[spritelist.size()][2];
-		
-		for(int i=0;i<spd.size();i++) {
-			spdarray[i]=spd.get(i);
-			spritearray[i]=spritelist.get(i);
-			posarray[i]=pos.get(i);
+		int[][] posarray = new int[spritelist.size()][2];
+
+		for (int i = 0; i < spd.size(); i++) {
+			spdarray[i] = spd.get(i);
+			spritearray[i] = spritelist.get(i);
+			posarray[i] = pos.get(i);
 		}
-		
-		spriteGroup group = new spriteGroup(spritearray,posarray,spdarray,width,height,w);
+
+		spriteGroup group = new spriteGroup(spritearray, posarray, spdarray, width, height, w);
 		return group;
 	}
 

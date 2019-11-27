@@ -1,9 +1,13 @@
 package game;
 
-import engine.loader;
 import engine.scene;
+import processing.core.PApplet;
 
 public class gameWindow extends engine.window {
+
+	public static void main(String[] args) {
+		PApplet.main("game.gameWindow");
+	}
 
 	@Override
 	public void settings() {
@@ -15,6 +19,7 @@ public class gameWindow extends engine.window {
 	public void setup() {
 		scene initscreen = new scene(this, "home");
 		initscreen.addEntity(new player(150, 150, 20, initscreen, this), "player");
+		initscreen.addEntity(new colbox(300, 300, 20, initscreen, this), "col");
 		addScene(initscreen);
 		selectScene("home");
 

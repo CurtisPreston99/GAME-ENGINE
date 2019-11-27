@@ -55,6 +55,12 @@ public class toggle extends UIelement {
 	@Override
 	public void ValUpdate() {
 		// TODO Auto-generated method stub
-		
+
+	}
+
+	@Override
+	public void key() {
+		// TODO Auto-generated method stub
+
 	}
 }

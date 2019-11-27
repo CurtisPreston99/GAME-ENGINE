@@ -1,6 +1,5 @@
 package engine.ui;
 
-import engine.entity;
 import engine.scene;
 import engine.window;
 import processing.core.PGraphics;
@@ -14,8 +13,8 @@ public class button extends UIelement {
 	public button(int x, int y, int sizex, int sizey, scene s, window w) {
 		super(x, y, sizex, sizey, s, w, "button");
 	}
-	
-	public button(int x, int y, int sizex, int sizey,String Name, scene s, window w) {
+
+	public button(int x, int y, int sizex, int sizey, String Name, scene s, window w) {
 		super(x, y, sizex, sizey, s, w, Name);
 	}
 
@@ -29,6 +28,7 @@ public class button extends UIelement {
 		return pressed;
 	}
 
+	@Override
 	public void ValUpdate() {
 
 	}
@@ -69,6 +69,12 @@ public class button extends UIelement {
 				ValUpdate();
 			}
 		}
+	}
+
+	@Override
+	public void key() {
+		// TODO Auto-generated method stub
+
 	}
 
 }

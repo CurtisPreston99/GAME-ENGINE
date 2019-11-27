@@ -15,8 +15,9 @@ public class input {
 	int[] codeids;
 	Boolean keymapLoaded = false;
 	public mouse Mouse = new mouse();
-
 	public PApplet Parrent;
+	public Character Lastkey;
+	public int LastkeyCode;
 
 	input(PApplet p) {
 		Parrent = p;
@@ -42,7 +43,6 @@ public class input {
 			}
 		}
 		return false;
-
 	}
 
 	public void set(Character key, boolean pressed) {
@@ -50,23 +50,40 @@ public class input {
 			loadKeymap();
 			keymapLoaded = true;
 		}
+		Lastkey = key;
+		LastkeyCode = Parrent.keyCode;
 		if (Parrent.keyCode >= 32 && Parrent.keyCode <= 126) {
 			keyboard.put(PApplet.parseChar(Parrent.keyCode), pressed);
-
 		}
 		if (isCode(Parrent.keyCode)) {
 			for (Object s : SpecialKeysMap.keys()) {
 //				System.out.println(s.toString());
 				if (Parrent.keyCode == SpecialKeysMap.getInt(s.toString())) {
 					SpecialKeys.put(s.toString(), pressed);
-
 				}
 			}
 		}
 	}
 
+	public boolean get(int key) {
+		if (key >= 32 && key <= 126) {
+
+			return get((Character) Character.toUpperCase((char) key));
+		}
+		if (isCode(key)) {
+			for (Object s : SpecialKeysMap.keys()) {
+//				System.out.println(s.toString());
+				if (Parrent.keyCode == SpecialKeysMap.getInt(s.toString())) {
+					return SpecialKeys.get(s.toString());
+				}
+			}
+		}
+		return false;
+	}
+
 	public boolean get(Character key) {
 		try {
+
 			boolean pressed = keyboard.get(key);
 			return pressed;
 		} // if key has not been pressed yet
@@ -117,16 +134,6 @@ public class input {
 
 		public int prevY() {
 			return Parrent.pmouseY;
-		}
-
-		public String toString() {
-			String re = "";
-			re += "mouse buttons";
-			re += "\nleft :" + left.toString();
-			re += "\nright :" + right.toString();
-			re += "\nscrol";
-
-			return re;
 		}
 
 	}

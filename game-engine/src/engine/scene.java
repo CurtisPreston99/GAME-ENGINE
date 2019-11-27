@@ -1,6 +1,5 @@
 package engine;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import processing.core.PGraphics;
@@ -20,12 +19,22 @@ public class scene {
 		UIentities.put(name, e);
 	}
 
+	public entity getEntity(String name) {
+		return UIentities.get(name);
+	}
+
 	public void update() {
 		for (entity e : UIentities.values()) {
 			e.update(Parrent);
 		}
-		if(Parrent.mousePressed) {
+		if (Parrent.mousePressed) {
 			click();
+		}
+	}
+
+	public void key() {
+		for (entity e : UIentities.values()) {
+			e.key();
 		}
 	}
 

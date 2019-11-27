@@ -12,14 +12,15 @@ public class sprite {
 	int mode = 0;
 	int bomdir = 1;
 	window w;
-	
+	public int sizex;
+	public int sizey;
+
 	public sprite(window w) {
-		this.w=w;
+		this.w = w;
 	}
-	
+
 	public sprite(String fname, int w, int h, window win) {
 		rawSprite = win.Loader.loadImage(fname);
-
 		int fra = rawSprite.width / w;
 		len = fra;
 
@@ -34,21 +35,27 @@ public class sprite {
 
 			frames[i] = f;
 		}
+
+		sizey = frames[0].height;
+		sizex = frames[0].width;
 	}
 
 	public sprite(String fname, int w, window win) {
-		this(fname,w, win.Loader.loadImage(fname).height,win);
+		this(fname, w, win.Loader.loadImage(fname).height, win);
 	}
-	
+
 	public sprite(String fname, window win) {
 		rawSprite = win.Loader.loadImage(fname);
-		PGraphics frame=win.createGraphics(rawSprite.width, rawSprite.height);
+		PGraphics frame = win.createGraphics(rawSprite.width, rawSprite.height);
 		frame.beginDraw();
-		frame.image(rawSprite,0,0);
+		frame.image(rawSprite, 0, 0);
 		frame.endDraw();
-		
+
 		frames = new PGraphics[1];
-		frames[0]=frame;
+		frames[0] = frame;
+
+		sizey = frames[0].height;
+		sizex = frames[0].width;
 	}
 
 	void modeSelect(String mode) {
@@ -94,7 +101,7 @@ public class sprite {
 			if (framePointer <= 0) {
 				bomdir = 1;
 			}
-			if (framePointer == len-1) {
+			if (framePointer == len - 1) {
 				bomdir = -1;
 			}
 			break;

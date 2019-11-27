@@ -8,12 +8,14 @@ import processing.event.MouseEvent;
 
 public abstract class window extends PApplet {
 	public input input = new input(this);
-	public HashMap<String, scene> screensh = new HashMap<>();
+	public HashMap<String, scene> screens = new HashMap<>();
 	public String selected;
 	public loader Loader = new loader(this);
 
+	@Override
 	abstract public void settings();
 
+	@Override
 	abstract public void setup();
 
 	abstract public void update();
@@ -23,53 +25,61 @@ public abstract class window extends PApplet {
 	abstract public void mouseClick();
 
 	public void addScene(scene s) {
-		screensh.put(s.id, s);
+		screens.put(s.id, s);
 	}
 
 	public scene getScene(String s) {
-		return screensh.get(s);
+		return screens.get(s);
 	}
-	
+
 	public scene getSelectedScene() {
-		return screensh.get(selected);
+		return screens.get(selected);
 	}
 
 	public void selectScene(String s) {
 		selected = s;
 	}
 
+	@Override
 	public void draw() {
 		background(255);
 		update();
-//		screens.get(selectedScreen).update();
-		screensh.get(selected).update();
+		screens.get(selected).update();
 		PGraphics frame = createGraphics(width, height);
 		frame.beginDraw();
 		frame.background(100);
-		screensh.get(selected).draw(frame);
+		screens.get(selected).draw(frame);
 		frame.endDraw();
 		image(frame, 0, 0);
 	}
 
+	@Override
 	public void keyPressed() {
 		input.set(key, true);
+		screens.get(selected).key();
+
 	}
 
+	@Override
 	public void keyReleased() {
 		input.set(key, false);
+		screens.get(selected).key();
 	}
 
+	@Override
 	public void mousePressed() {
 		input.Mouse.press(mouseButton, true);
-		screensh.get(selected).click();
+		screens.get(selected).click();
 	}
 
+	@Override
 	public void mouseReleased() {
 		input.Mouse.press(mouseButton, false);
-		screensh.get(selected).click();
+		screens.get(selected).click();
 
 	}
 
+	@Override
 	public void mouseWheel(MouseEvent event) {
 		float e = event.getCount();
 		input.Mouse.scroll(e);
