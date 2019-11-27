@@ -20,6 +20,10 @@ public class textbox extends UIelement {
 
 	}
 
+	String getVal() {
+		return text;
+	}
+
 	@Override
 	public void draw(PGraphics b) {
 		String text1 = text.substring(0, pointer);
@@ -74,7 +78,7 @@ public class textbox extends UIelement {
 						text1 = text1.substring(0, text1.length() - 1) + text2;
 						text = text1;
 						pointer--;
-
+						ValUpdate();
 					} catch (Exception e) {
 						// just carry on
 					}
@@ -93,6 +97,7 @@ public class textbox extends UIelement {
 							text = text1;
 						}
 						pointer++;
+						ValUpdate();
 					}
 				}
 			}
