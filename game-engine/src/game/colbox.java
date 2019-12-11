@@ -1,8 +1,8 @@
 package game;
 
-import engine.entity;
 import engine.scene;
 import engine.window;
+import engine.entity.entity;
 import processing.core.PGraphics;
 
 public class colbox extends entity {

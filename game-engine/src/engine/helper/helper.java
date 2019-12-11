@@ -22,11 +22,11 @@ public class helper extends window {
 		addScene(initscreen);
 		addScene(mapping);
 		selectScene("home");
-		initscreen.addEntity(new button(10, 10, 100, 30, initscreen, this), "homebutton");
-		initscreen.addEntity(new button(300, 10, 100, 30, "file test", initscreen, this), "savingTest");
-		initscreen.addEntity(new toggle(10, 100, 100, 40, initscreen, this, "toggle"), "toggle");
-		initscreen.addEntity(new slider(10, 200, 100, 40, initscreen, this, "slider"), "slider");
-		initscreen.addEntity(new textbox(10, 300, 100, 40, initscreen, this, "textbox"), "textbox");
+		initscreen.addUIEntity(new button(10, 10, 100, 30, initscreen, this), "homebutton");
+		initscreen.addUIEntity(new button(300, 10, 100, 30, "file test", initscreen, this), "savingTest");
+		initscreen.addUIEntity(new toggle(10, 100, 100, 40, initscreen, this, "toggle"), "toggle");
+		initscreen.addUIEntity(new slider(10, 200, 100, 40, initscreen, this, "slider"), "slider");
+		initscreen.addUIEntity(new textbox(10, 300, 100, 40, initscreen, this, "textbox"), "textbox");
 	}
 
 	@Override
@@ -64,13 +64,13 @@ public class helper extends window {
 			if (b.pressed) {
 				selectScene("mapping");
 				scene s = getSelectedScene();
-				s.addEntity(new button(10, 10, 100, 20, s, this), "mappingButton");
+				s.addUIEntity(new button(10, 10, 100, 20, s, this), "mappingButton");
 			}
 		}
 		if (selected == "mapping") {
 			button b = (button) getSelectedScene().UIentities.get("mappingButton");
 			if (b.pressed) {
-				getSelectedScene().addEntity(new slider(10, 300, 200, 20, 0, 20, getSelectedScene(), this, "slider"),
+				getSelectedScene().addUIEntity(new slider(10, 300, 200, 20, 0, 20, getSelectedScene(), this, "slider"),
 						"slider");
 
 			}
@@ -87,6 +87,12 @@ public class helper extends window {
 	public void mouseClick() {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void mouseWheel() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

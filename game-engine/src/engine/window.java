@@ -24,6 +24,9 @@ public abstract class window extends PApplet {
 
 	abstract public void mouseClick();
 
+	@Override
+	abstract public void mouseWheel();
+
 	public void addScene(scene s) {
 		screens.put(s.id, s);
 	}
@@ -57,32 +60,35 @@ public abstract class window extends PApplet {
 	public void keyPressed() {
 		input.set(key, true);
 		screens.get(selected).key();
-
+		keyUpdate();
 	}
 
 	@Override
 	public void keyReleased() {
 		input.set(key, false);
 		screens.get(selected).key();
+		keyUpdate();
 	}
 
 	@Override
 	public void mousePressed() {
 		input.Mouse.press(mouseButton, true);
 		screens.get(selected).click();
+		mouseClick();
 	}
 
 	@Override
 	public void mouseReleased() {
 		input.Mouse.press(mouseButton, false);
 		screens.get(selected).click();
-
+		mouseClick();
 	}
 
 	@Override
 	public void mouseWheel(MouseEvent event) {
 		float e = event.getCount();
 		input.Mouse.scroll(e);
+		mouseWheel();
 	}
 
 }

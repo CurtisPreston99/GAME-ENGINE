@@ -2,6 +2,7 @@ package engine;
 
 import java.util.HashMap;
 
+import engine.entity.entity;
 import processing.core.PGraphics;
 
 public class scene {
@@ -15,11 +16,11 @@ public class scene {
 		this.id = id;
 	}
 
-	public void addEntity(entity e, String name) {
+	public void addUIEntity(entity e, String name) {
 		UIentities.put(name, e);
 	}
 
-	public entity getEntity(String name) {
+	public entity getUIEntity(String name) {
 		return UIentities.get(name);
 	}
 

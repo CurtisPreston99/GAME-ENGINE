@@ -1,0 +1,21 @@
+{
+"width":64,
+"height":64,
+"sprites":[
+    {"sprite":"images/spriteGroupTest/bodyUP.png",
+    "cutX":64,
+    "X":0,
+    "Y":0,
+    "spd":4},
+    {"sprite":"images/spriteGroupTest/tshitup.png",
+    "cutX":64,
+    "X":0,
+    "Y":0,
+    "spd":4},
+    {"sprite":"images/spriteGroupTest/robeLegsUP.png",
+    "cutX":64,
+    "X":0,
+    "Y":0,
+    "spd":4}
+]
+}

@@ -1,8 +1,8 @@
 package engine.ui;
 
-import engine.entity;
 import engine.scene;
 import engine.window;
+import engine.entity.entity;
 import processing.core.PGraphics;
 
 public abstract class UIelement extends entity {

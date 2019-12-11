@@ -1,5 +1,7 @@
-package engine;
+package engine.entity;
 
+import engine.scene;
+import engine.window;
 import processing.core.PGraphics;
 
 public abstract class entity {
@@ -26,14 +28,11 @@ public abstract class entity {
 	}
 
 	public Boolean collide(entity e) {
-		Boolean col = false;
 
 		Boolean test1 = (this.x < e.x + e.sizex && this.x + this.sizex > e.x && this.y < e.y + e.sizey
 				&& this.y + this.sizey > e.y);
 
-		System.out.println(test1);
-
-		return col;
+		return test1;
 	}
 
 	public abstract void update(window w);

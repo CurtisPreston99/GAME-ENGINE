@@ -1,8 +1,8 @@
 package game;
 
-import engine.entity;
 import engine.scene;
 import engine.window;
+import engine.entity.entity;
 import engine.sprite.sprite;
 import engine.sprite.spriteGroup;
 import processing.core.PGraphics;
@@ -34,7 +34,7 @@ public class player extends entity {
 	@Override
 	public void update(window w) {
 
-		collide(w.getSelectedScene().getEntity("col"));
+		collide(w.getSelectedScene().getUIEntity("col"));
 
 		int speed = 1;
 
