@@ -2,8 +2,6 @@ package engine.editor;
 
 import engine.scene;
 import engine.window;
-import engine.map.map;
-import engine.sprite.spriteGroup;
 import engine.ui.UIimage;
 import engine.ui.button;
 
@@ -14,8 +12,7 @@ public class editor extends window {
 
 	@Override
 	public void settings() {
-		size(800, 800);
-
+		size(800,800);
 	}
 
 	@Override
@@ -30,18 +27,10 @@ public class editor extends window {
 		scene Sprites = new scene(this, "Sprites");
 		addScene(Sprites);
 
-		scene mapping = new scene(this, "mapping");
+		scene mapping = new mapeditor(this, "mapping");
 		addScene(initscreen);
 		addScene(mapping);
 		selectScene("home");
-		// TODO Auto-generated method stub
-		try {
-			spriteGroup s = spriteGroup.JSONload(Loader.loadJSON("grouptest"), this);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
 	}
 
 	@Override
@@ -50,14 +39,12 @@ public class editor extends window {
 			scene s = getScene("home");
 			if (((button) s.getUIEntity("spriteTools")).getVal()) {
 				selected = "Sprites";
-				scene spr = getScene("Sprites");
+//				scene spr = getScene("Sprites");
 
 			}
 			if (((button) s.getUIEntity("MapTools")).getVal()) {
 				selected = "mapping";
-				scene MMap = getScene("mapping");
-				map m = new engine.map.map("map/testmap.json", this);
-				print(m);
+
 			}
 		}
 	}

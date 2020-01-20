@@ -6,17 +6,21 @@ import processing.core.PImage;
 public class tile {
 	PImage TileImage;
 	String filePath;
-	int size;
 
 	public tile(String f, window w) {
 		filePath = f;
 		TileImage = w.Loader.loadImage(f);
-		size = TileImage.height;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		tile t = (tile) obj;
+		return t.filePath == this.filePath;
 	}
 
 	@Override
 	public String toString() {
-		return filePath + "  " + String.valueOf(size);
+		return filePath;
 	}
 
 	public PImage getTile() {

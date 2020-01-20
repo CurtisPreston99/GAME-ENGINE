@@ -2,12 +2,13 @@ package engine.ui;
 
 import engine.scene;
 import engine.window;
+import processing.core.PConstants;
 import processing.core.PGraphics;
 
 public class button extends UIelement {
 
-	int colmain = w.color(0, 255, 0);
-	int colpressed = w.color(255, 0, 0);
+	public int colmain = w.color(0, 255, 0);
+	public int colpressed = w.color(255, 0, 0);
 	public Boolean pressed = false;
 
 	public button(int x, int y, int sizex, int sizey, scene s, window w) {
@@ -45,7 +46,7 @@ public class button extends UIelement {
 			b.fill(colpressed);
 		}
 		b.rect(x, y, sizex, sizey);
-		b.textAlign(w.CENTER, w.CENTER);
+		b.textAlign(PConstants.CENTER, PConstants.CENTER);
 		b.fill(0);
 		b.text(name, x + (sizex / 2), y + (sizey / 2));
 		b.fill(255);

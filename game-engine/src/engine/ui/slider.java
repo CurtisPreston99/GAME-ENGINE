@@ -2,6 +2,7 @@ package engine.ui;
 
 import engine.scene;
 import engine.window;
+import processing.core.PConstants;
 import processing.core.PGraphics;
 
 public class slider extends UIelement {
@@ -42,7 +43,7 @@ public class slider extends UIelement {
 		b.rect(x, y, slider, sizey);
 		b.fill(col2);
 		b.rect(x + slider, y, sizex - (slider), sizey);
-		b.textAlign(w.CENTER, w.CENTER);
+		b.textAlign(PConstants.CENTER, PConstants.CENTER);
 		b.fill(0);
 		b.text(name, x + (sizex / 2), y + (sizey / 2));
 		b.fill(255);

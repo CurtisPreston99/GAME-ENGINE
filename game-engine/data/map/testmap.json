@@ -5,7 +5,7 @@
 "tileWidth":32,
 "tileHeight":32,
 
-"tiles":["map/mid.png"],
+"tiles":["tiles/mid.png"],
 
 "map":[[-1,-1,-1,-1,-1],
 	[-1,-1,-1,-1,-1],

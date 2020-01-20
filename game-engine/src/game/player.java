@@ -12,12 +12,12 @@ public class player extends entity {
 
 	public player(int x, int y, int size, scene s, window w) {
 		super(x, y, size, s, w, "player");
-		sprite[] sprites = { new sprite("images/spriteGroupTest/bodyUP.png", 64, w),
-				new sprite("images/spriteGroupTest/tshitup.png", 64, w),
-				new sprite("images/spriteGroupTest/robeLegsUP.png", 64, w) };
-		int[][] grouppos = { { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 } };
-		int[] spd = { 4, 4, 4, 4 };
-
+//		sprite[] sprites = { new sprite("images/spriteGroupTest/bodyUP.png", 64, w),
+//				new sprite("images/spriteGroupTest/tshitup.png", 64, w),
+//				new sprite("images/spriteGroupTest/robeLegsUP.png", 64, w) };
+//		int[][] grouppos = { { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 } };
+//		int[] spd = { 4, 4, 4, 4 };
+//
 //		sprite= new spriteGroup(sprites,grouppos,  spd, 64, 64, w);
 		try {
 			sprite = spriteGroup.JSONload(w.Loader.loadJSON("grouptest"), w);

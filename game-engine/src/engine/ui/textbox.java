@@ -2,11 +2,12 @@ package engine.ui;
 
 import engine.scene;
 import engine.window;
+import processing.core.PConstants;
 import processing.core.PGraphics;
 
 public class textbox extends UIelement {
 
-	String text = "";
+	public String text = "";
 	boolean selected = false;
 	int pointer = 0;
 
@@ -31,7 +32,7 @@ public class textbox extends UIelement {
 		String Drawntext = text1 + '|' + text2;
 		b.rect(x, y, sizex, sizey);
 		b.fill(0);
-		b.textAlign(w.LEFT, w.CENTER);
+		b.textAlign(PConstants.LEFT, PConstants.CENTER);
 		b.text(Drawntext, x + (sizex / 10), y + (sizey / 2));
 		b.fill(255);
 

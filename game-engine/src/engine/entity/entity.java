@@ -1,5 +1,9 @@
 package engine.entity;
 
+import java.util.HashMap;
+
+import javax.print.attribute.HashAttributeSet;
+
 import engine.scene;
 import engine.window;
 import processing.core.PGraphics;
@@ -7,18 +11,28 @@ import processing.core.PGraphics;
 public abstract class entity {
 	public int x, y, sizex, sizey;
 	public String name;
+	protected HashMap<String, String> atributes = new HashMap<String, String>();
 	public window w;
 
-	public entity(int x, int y, int size, scene s, window w) {
+	public void setAtrribute(final String name, final String val) {
+		atributes.put(name, val);
+	}
+
+	public String getAtrribute(final String name) {
+		return atributes.get(name).toString();
+	}
+
+	public entity(final int x, final int y, final int size, final scene s, final window w) {
 		this(x, y, size, size, s, w, "unkown");
 	}
 
-	public entity(int x, int y, int size, scene s, window w, String name) {
+	public entity(final int x, final int y, final int size, final scene s, final window w, final String name) {
 		this(x, y, size, size, s, w, name);
 
 	}
 
-	public entity(int x, int y, int sizex, int sizey, scene s, window w, String name) {
+	public entity(final int x, final int y, final int sizex, final int sizey, final scene s, final window w,
+			final String name) {
 		this.w = w;
 		this.x = x;
 		this.y = y;
@@ -27,7 +41,7 @@ public abstract class entity {
 		this.name = name;
 	}
 
-	public Boolean collide(entity e) {
+	public Boolean collide(final entity e) {
 
 		Boolean test1 = (this.x < e.x + e.sizex && this.x + this.sizex > e.x && this.y < e.y + e.sizey
 				&& this.y + this.sizey > e.y);
