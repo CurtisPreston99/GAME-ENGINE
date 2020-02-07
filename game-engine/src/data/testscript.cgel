@@ -1,0 +1,19 @@
+function init{
+    x=10;
+        y=5;
+        //mmm//
+        z=-10;
+        test="stringtest";
+        floatTest=1.3;
+        floatTestN=-1.3;
+        BooltestTr=True;
+        BooltestFa=False;
+}
+}
+
+function tick{
+        x=y;
+        y=z+2;
+        //mmm//
+        z=-10;
+}
