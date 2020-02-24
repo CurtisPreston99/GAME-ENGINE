@@ -13,6 +13,10 @@ public class editor extends window {
 	@Override
 	public void settings() {
 		size(800,800);
+		println("this.sketchPath");
+
+		println(this.sketchPath());
+		println(this.dataPath(""));
 	}
 
 	@Override

@@ -33,7 +33,7 @@ public class script {
         String[] methodStrings=s.split("function");
         for(String i : methodStrings){
             if(i.trim().length() > 0){
-                method methTmp = new method(i);
+                method methTmp = new method(i,this);
                 methods.put(methTmp.getName(), methTmp);
             }
         }

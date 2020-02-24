@@ -9,6 +9,10 @@ public class variable {
         this.type=type;
         this.Value=value;
     };
+    public variable(variable var){
+        this.type=var.type;
+        this.Value=var.Value;
+    };
     public variable(int obj){
         this.type=0;
         this.Value=obj;
@@ -92,6 +96,21 @@ public class variable {
             return false;
         }
     }
+    public String ValString(){
+        switch (type) {
+            case 0:
+                return String.valueOf((int)Value);
+            case 1:
+                return String.valueOf((float)Value);
+            case 2:
+                return String.valueOf((String)Value);
+            case 3:
+                return String.valueOf((boolean)Value);
+            default:
+                return "cant find type";
+        }
+    }
+
 
     @Override
     public String toString(){

@@ -8,12 +8,20 @@ function init{
         floatTestN=-1.3;
         BooltestTr=True;
         BooltestFa=False;
+        SpaceString="test String with a space";
 }
 }
 
-function tick{
+function mathTest{
         x=y;
         y=z+2;
         //mmm//
         z=-10;
+        floatTest=floatTest/2;
+}
+
+
+function gettwo(){
+        i=2;
+        return i;
 }

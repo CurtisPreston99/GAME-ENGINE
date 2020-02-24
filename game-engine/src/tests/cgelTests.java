@@ -84,9 +84,10 @@ class cgelTests {
         correct.put("floatTestN",new variable(-1.3));
         correct.put("BooltestTr",new variable(true));
         correct.put("BooltestFa",new variable(false));
+        correct.put("SpaceString",new variable("\"test String with a space\""));
 
-        // System.out.println(vars);
-        // System.out.println(correct);
+        System.out.println(vars);
+        System.out.println(correct);
 
         assertTrue(correct.equals(vars));
     }
@@ -105,13 +106,21 @@ class cgelTests {
         PApplet.printArray(load.getMethods());
         HashMap<String,variable> vars = new HashMap<>();
         load.runMethod("init", vars);
-        System.out.println(vars);
+        load.runMethod("mathTest", vars);
+        
         HashMap<String,variable> correct = new HashMap<>();
-        correct.put("x",new variable(10));
-        correct.put("y",new variable(5));
+        correct.put("x",new variable(5));
+        correct.put("y",new variable(-8));
         correct.put("z",new variable(-10));
-        System.out.println(correct);
+        correct.put("test",new variable("\"stringtest\""));
+        correct.put("floatTest",new variable(0.65));
+        correct.put("floatTestN",new variable(-1.3));
+        correct.put("BooltestTr",new variable(true));
+        correct.put("BooltestFa",new variable(false));
+        correct.put("SpaceString",new variable("\"test String with a space\""));
 
+        System.out.println(vars);
+        System.out.println(correct);
         assertTrue(correct.equals(vars));
     }
 

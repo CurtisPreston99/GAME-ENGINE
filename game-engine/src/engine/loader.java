@@ -16,15 +16,18 @@ public class loader {
 		this.parrent = parrent;
 	}
 
-	public PImage loadImage(String fname) {
+	public PImage loadImage(String fname){
 
 		PImage i = imageBuffer.get(fname);
 		if (i == null) {
 			i = parrent.loadImage(fname);
 			imageBuffer.put(fname, i);
 		}
-
-		return i;
+		if (i == null) {
+			return parrent.createGraphics(10, 10);
+		}else{
+			return i;
+		}
 	}
 
 	public String loadTxt(String fname) throws Exception {
