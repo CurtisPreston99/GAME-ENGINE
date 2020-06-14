@@ -1,7 +1,10 @@
 package engine.ui;
 
+import java.util.HashMap;
+
 import engine.scene;
 import engine.window;
+import engine.input.mouse;
 import processing.core.PConstants;
 import processing.core.PGraphics;
 
@@ -10,19 +13,25 @@ public class button extends UIelement {
 	public int colmain = w.color(0, 255, 0);
 	public int colpressed = w.color(255, 0, 0);
 	public Boolean pressed = false;
+	public HashMap<String, Integer> colors;
+	boolean hover=false;
 
 	public button(int x, int y, int sizex, int sizey, scene s, window w) {
 		super(x, y, sizex, sizey, s, w, "button");
+		colors=window.getDark();
 	}
 
 	public button(int x, int y, int sizex, int sizey, String Name, scene s, window w) {
 		super(x, y, sizex, sizey, s, w, Name);
+		colors=window.getDark();
 	}
 
 	public button(int x, int y, int sizex, int sizey, int idle, int selected, scene s, window w) {
 		super(x, y, sizex, sizey, s, w, "button");
 		colmain = idle;
 		colpressed = selected;
+		colors=window.getDark();
+
 	}
 
 	public Boolean getVal() {
@@ -36,20 +45,36 @@ public class button extends UIelement {
 
 	@Override
 	public void update(window w) {
-		// TODO Auto-generated method stub
+
+		hover= w.mouseX >= x && w.mouseX <= x+sizex && 
+		w.mouseY >= y && w.mouseY <= y+sizey;
 
 	}
 
 	@Override
 	public void draw(PGraphics b) {
-		if (pressed) {
-			b.fill(colpressed);
+
+
+		if (hover) {
+			b.fill(colors.get("c_hover"));
+			b.rect(x, y, sizex, sizey);
+			b.fill(colors.get("c_text_color"));
+			b.textSize(15);
+			b.textAlign(b.CENTER, b.CENTER);
+			b.text(name, x, y,  sizex, sizey);
+			if (pressed) {
+			b.fill(colors.get("c_light"));
+			b.rect(x, y,  sizex, sizey);
+			b.text(name, x, y,  sizex, sizey);
+			}
+		} else {
+			b.fill(colors.get("c_light"));
+			b.rect(x, y,  sizex, sizey);
+			b.fill(colors.get("c_text_color"));
+			b.textSize(15);
+			b.textAlign(b.CENTER, b.CENTER);
+			b.text(name, x, y,  sizex, sizey);
 		}
-		b.rect(x, y, sizex, sizey);
-		b.textAlign(PConstants.CENTER, PConstants.CENTER);
-		b.fill(0);
-		b.text(name, x + (sizex / 2), y + (sizey / 2));
-		b.fill(255);
 
 	}
 

@@ -43,7 +43,7 @@ public class editor extends window {
 			scene s = getScene("home");
 			if (((button) s.getUIEntity("spriteTools")).getVal()) {
 				selected = "Sprites";
-//				scene spr = getScene("Sprites");
+				scene spr = getScene("Sprites");
 
 			}
 			if (((button) s.getUIEntity("MapTools")).getVal()) {

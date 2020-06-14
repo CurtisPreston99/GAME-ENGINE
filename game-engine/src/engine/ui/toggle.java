@@ -1,5 +1,7 @@
 package engine.ui;
 
+import java.util.HashMap;
+
 import engine.scene;
 import engine.window;
 import processing.core.PGraphics;
@@ -7,9 +9,12 @@ import processing.core.PGraphics;
 public class toggle extends UIelement {
 	Boolean toggle = false;
 	Boolean can = true;
+	public HashMap<String, Integer> colors;
+	boolean hover;
 
 	public toggle(int x, int y, int sizex, int sizey, scene s, window w, String name) {
 		super(x, y, sizex, sizey, s, w, name);
+		colors=window.getDark();
 	}
 
 	public Boolean getVal() {
@@ -17,21 +22,37 @@ public class toggle extends UIelement {
 	}
 
 	@Override
+	public void update(window w) {
+
+		hover= w.mouseX >= x && w.mouseX <= x+sizex && 
+		w.mouseY >= y && w.mouseY <= y+sizey;
+
+	}
+
+	@Override
 	public void draw(PGraphics b) {
-		if (toggle) {
-
+		b.fill(colors.get("c_dark"));
+  		b.stroke(colors.get("c_light"));
+  		b.rect(x, y, sizex, sizey, sizey/2);
+		int pos=0;
+		if(toggle){
+			pos=sizex-sizey;
 		}
-		b.fill(w.color(0, 0, 255));
-		b.rect(x, y, sizex, sizey);
-		b.fill(w.color(255));
-
-		if (toggle) {
-			b.rect(x + (sizex / 10), y + (sizey / 10), sizex / 2 - (sizex / 10), sizey - ((sizey / 10) * 2));
-		} else {
-			b.rect(x + (sizex / 2), y + (sizey / 10), sizex / 2 - ((sizex / 10)), sizey - ((sizey / 10) * 2));
-
+		if (hover)
+		{
+	
+		b.noStroke();
+	
+		b.fill(colors.get("c_hover"), 100);  
+		b.ellipse(x+sizey/2+pos, y+sizey/2, sizey-2, sizey-2);
+		b.fill(colors.get("c_hover"));
+		b.ellipse(x+sizey/2+pos, y+sizey/2, sizey-8, sizey-8);
+		b.noStroke();
+		}else{
+			b.fill(colors.get("c_light"));
+    		b.stroke(colors.get("c_light"));
+    		b.ellipse(x+sizey/2+pos, y+sizey/2, sizey-8, sizey-8);
 		}
-		b.fill(255);
 
 	}
 

@@ -1,5 +1,7 @@
 package engine.ui;
 
+import java.util.HashMap;
+
 import engine.scene;
 import engine.window;
 import processing.core.PConstants;
@@ -8,19 +10,24 @@ import processing.core.PGraphics;
 public class slider extends UIelement {
 	float maxVal, minVal;
 	float slider = 0;
-	int col1;
-	int col2;
+    boolean hover;
+    boolean clicked;
+    public HashMap<String, Integer> colors;
 
 	public slider(int x, int y, int sizex, int sizey, float minVal, float maxVal, scene s, window w, String name) {
 		super(x, y, sizex, sizey, s, w, name);
 		this.maxVal = maxVal;
 		this.minVal = minVal;
-		this.col2 = w.color(0, 0, 150);
-		this.col1 = w.color(0, 0, 250);
-	}
+        colors=window.getDark();
+
+    }
+    
+    // public slider
 
 	public slider(int x, int y, int sizex, int sizey, scene s, window w, String name) {
-		this(x, y, sizex, sizey, 0, 1, s, w, name);
+        this(x, y, sizex, sizey, 0, 1, s, w, name);
+        colors=window.getDark();
+
 	}
 
 	public float getVal() {
@@ -34,32 +41,65 @@ public class slider extends UIelement {
 		return value;
 
 //		return (float) 0.5;
+    }
+    
+    public static float mapRange(double a1, double a2, double b1, double b2, double s) {
+		return (float) (b1 + ((s - a1) * (b2 - b1)) / (a2 - a1));
 	}
 
 	@Override
 	public void draw(PGraphics b) {
 
-		b.fill(col1);
-		b.rect(x, y, slider, sizey);
-		b.fill(col2);
-		b.rect(x + slider, y, sizex - (slider), sizey);
-		b.textAlign(PConstants.CENTER, PConstants.CENTER);
-		b.fill(0);
-		b.text(name, x + (sizex / 2), y + (sizey / 2));
-		b.fill(255);
+
+        b.noStroke();
+        b.fill(colors.get("c_light"));
+        b.rect(x, y+sizey/2, sizex, 4, 2);
+        float pos = mapRange(minVal, maxVal, 0, sizex,slider);
+        b.fill(colors.get("c_hover"));
+        b.rect(x, y+sizey/2, pos, 4, 2);
+
+        //Hover
+        if (hover)
+        {
+            b.fill(colors.get("c_hover"));
+            if (clicked) {
+                b.fill(colors.get("c_hover"), 100);
+                b.ellipse(pos, y+sizey/2, sizex, sizex); 
+                b.fill(colors.get("c_hover"));
+                b.ellipse(pos, y+sizey/2, sizey-8, sizey-8);
+            } else {
+                b.fill(colors.get("c_hover"), 50);
+                b.ellipse(pos+x, y+sizey/2, sizey, sizey); 
+                b.fill(colors.get("c_hover"));
+                b.ellipse(pos+x, y+sizey/2, sizey-8, sizey-8);
+            }
+        } 
+        //Normal
+        else {
+            b.noStroke();
+            b.fill(colors.get("c_hover"));
+            b.ellipse(pos+x, y+sizey/2, sizey-8, sizey-8);
+        }
+
+    }
+    
+
+    @Override
+	public void update(window w) {
+
+		hover= w.mouseX >= x && w.mouseX <= x+sizex && 
+		w.mouseY >= y && w.mouseY <= y+sizey;
 
 	}
 
 	@Override
 	public void click() {
+		// mapRange(minVal, maxVal, 0, sizex,slider);
 		if (w.input.Mouse.left) {
-			if (w.input.Mouse.X() > x && w.input.Mouse.X() < x + sizex) {
-				if (w.input.Mouse.Y() > y && w.input.Mouse.Y() < y + sizey) {
-					if (slider != w.input.Mouse.X() - x) {
-						slider = w.input.Mouse.X() - x;
-						ValUpdate();
-					}
-				}
+            clicked=true;
+			if ( w.mouseX >= x && w.mouseX <= x+sizex && w.mouseY >= y && w.mouseY <= y+sizey) {
+                slider=mapRange(x, x+sizex,minVal, maxVal,w.mouseX);
+                
 			}
 		}
 	}

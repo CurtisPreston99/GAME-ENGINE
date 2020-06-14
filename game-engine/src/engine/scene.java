@@ -52,7 +52,6 @@ public class scene {
 	}
 
 	public void draw(PGraphics frame) {
-		frame.background(background);
 		for (entity e : UIentities.values()) {
 			e.draw(frame);
 		}

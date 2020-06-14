@@ -1,5 +1,9 @@
 package engine.helper;
 
+
+// https://www.youtube.com/watch?v=h1o5UzKfZcQ
+
+
 import engine.scene;
 import engine.window;
 import engine.sprite.spriteGroup;
@@ -26,18 +30,17 @@ public class helper extends window {
 		initscreen.addUIEntity(new button(300, 10, 100, 30, "file test", initscreen, this), "savingTest");
 		initscreen.addUIEntity(new toggle(10, 100, 100, 40, initscreen, this, "toggle"), "toggle");
 		initscreen.addUIEntity(new slider(10, 200, 100, 40, initscreen, this, "slider"), "slider");
-		initscreen.addUIEntity(new textbox(10, 300, 100, 40, initscreen, this, "textbox"), "textbox");
+		initscreen.addUIEntity(new textbox(10, 300, 150, 80, initscreen, this, "textbox"), "textbox");
 	}
 
 	@Override
 	public void setup() {
-		// TODO Auto-generated method stub
 		try {
 			spriteGroup s = spriteGroup.JSONload(Loader.loadJSON("grouptest"), this);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 
 	}
 
@@ -72,27 +75,29 @@ public class helper extends window {
 			if (b.pressed) {
 				getSelectedScene().addUIEntity(new slider(10, 300, 200, 20, 0, 20, getSelectedScene(), this, "slider"),
 						"slider");
+				getSelectedScene().addUIEntity(new button(140, 10, 100, 20, getSelectedScene(), this),"back");
+
+			}
+			b = (button) getSelectedScene().UIentities.get("back");
+			if (b!=null && b.pressed) {
+				selectScene("home");
 
 			}
 		}
+		
 	}
 
 	@Override
 	public void keyUpdate() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void mouseClick() {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void mouseWheel() {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

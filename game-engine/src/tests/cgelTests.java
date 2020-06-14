@@ -3,17 +3,19 @@ package tests;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.HashMap;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.DisplayName;
+
 import engine.cgel.cgel;
 import engine.cgel.script;
 import engine.cgel.variable;
 import engine.editor.editor;
 import processing.core.PApplet;
 
+
+@DisplayName("CGLE test Cases")
 class cgelTests {
-    public cgelTests() {
 
-    }
-
+    @DisplayName("loadscriptFail")
     @Test
     public void loadscriptFail() {
         editor e = new editor();
@@ -23,10 +25,10 @@ class cgelTests {
         PApplet.runSketch(args, e);
         cgel s = new cgel(e);
         script load = s.loadScript("notafile");
-        assertTrue(load == null);
         e.exit();
+        assertTrue(load == null);
     }
-
+    @DisplayName("loadscriptPass")
     @Test
     public void loadscriptass() {
         editor e = new editor();
@@ -43,6 +45,7 @@ class cgelTests {
         assertTrue(load != null);
     }
 
+    @DisplayName("splitting functions")
     @Test
     public void scriptFunctionSplit() {
         editor e = new editor();
@@ -60,7 +63,7 @@ class cgelTests {
 
     }
 
-
+    @DisplayName("making varables")
     @Test
     public void variableInits() {
         editor e = new editor();
@@ -92,6 +95,7 @@ class cgelTests {
         assertTrue(correct.equals(vars));
     }
 
+    @DisplayName("doing math")
     @Test
     public void variableMath() {
         editor e = new editor();
