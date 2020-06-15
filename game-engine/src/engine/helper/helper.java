@@ -7,6 +7,7 @@ package engine.helper;
 import engine.scene;
 import engine.window;
 import engine.sprite.spriteGroup;
+import engine.ui.UItheme;
 import engine.ui.button;
 import engine.ui.slider;
 import engine.ui.textbox;
@@ -27,6 +28,7 @@ public class helper extends window {
 		addScene(mapping);
 		selectScene("home");
 		initscreen.addUIEntity(new button(10, 10, 100, 30, initscreen, this), "homebutton");
+		initscreen.addUIEntity(new toggle(400, 10, 100, 30,initscreen, this,"UI switch"), "UI switch");
 		initscreen.addUIEntity(new button(300, 10, 100, 30, "file test", initscreen, this), "savingTest");
 		initscreen.addUIEntity(new toggle(10, 100, 100, 40, initscreen, this, "toggle"), "toggle");
 		initscreen.addUIEntity(new slider(10, 200, 100, 40, initscreen, this, "slider"), "slider");
@@ -50,6 +52,12 @@ public class helper extends window {
 			slider slider = (slider) getSelectedScene().UIentities.get("slider");
 
 			button save = (button) getSelectedScene().UIentities.get("savingTest");
+			toggle UI = (toggle) getSelectedScene().UIentities.get("UI switch");
+			if(UI.getVal()){
+				UItheme.Singleton().setDark();
+			}else{
+				UItheme.Singleton().setLight();
+			}
 			if (save.getVal()) {
 				try {
 					String in = Loader.loadTxt("test");

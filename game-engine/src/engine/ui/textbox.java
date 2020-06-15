@@ -13,12 +13,12 @@ public class textbox extends UIelement {
 	String hint = "";
 	boolean selected = false;
 	int pointer = 0;
-	public HashMap<String, Integer> colors;
+	public UItheme colors;
 	boolean hover = false;
 
 	public textbox(int x, int y, int sizex, int sizey, scene s, window w, String name) {
 		super(x, y, sizex, sizey, s, w, name);
-		colors = window.getDark();
+		colors = window.getUItheme();
 	}
 
 	public textbox(int x, int y, int sizex, int sizey, scene s, window w, String name, String hint) {
@@ -45,27 +45,27 @@ public class textbox extends UIelement {
 	public void draw(PGraphics b) {
 
 		if (selected) {
-			b.fill(colors.get("c_dark"));
+			b.fill(colors.c_dark);
 			b.rect(x, y, sizex, sizey);
-			b.stroke(colors.get("c_light"));
+			b.stroke(colors.c_light);
 			b.noStroke();
-			b.fill(colors.get("c_text_color"));
+			b.fill(colors.c_text_color);
 			b.textSize(15);
 			b.textAlign(b.CENTER, b.CENTER);
 			b.text(text, x, y, sizex, sizey);
 
 		} else if (hover) {
-			b.fill(colors.get("c_hover"));
+			b.fill(colors.c_hover);
 			b.rect(x, y, sizex, sizey);
-			b.fill(colors.get("c_text_color"));
+			b.fill(colors.c_text_color);
 			b.textSize(15);
 			b.textAlign(b.CENTER, b.CENTER);
 			b.text(text, x, y, sizex, sizey);
 		} else {
-			b.fill(colors.get("c_light"));
-			b.stroke(colors.get("c_dark"));
+			b.fill(colors.c_light);
+			b.stroke(colors.c_dark);
 			b.rect(x, y, sizex, sizey);
-			b.fill(colors.get("c_text_color"));
+			b.fill(colors.c_text_color);
 			b.textSize(15);
 			b.textAlign(b.CENTER, b.CENTER);
 			b.text(text, x, y, sizex, sizey);

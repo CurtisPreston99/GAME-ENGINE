@@ -13,24 +13,24 @@ public class button extends UIelement {
 	public int colmain = w.color(0, 255, 0);
 	public int colpressed = w.color(255, 0, 0);
 	public Boolean pressed = false;
-	public HashMap<String, Integer> colors;
+	public UItheme colors;
 	boolean hover=false;
 
 	public button(int x, int y, int sizex, int sizey, scene s, window w) {
 		super(x, y, sizex, sizey, s, w, "button");
-		colors=window.getDark();
+		colors=window.getUItheme();
 	}
 
 	public button(int x, int y, int sizex, int sizey, String Name, scene s, window w) {
 		super(x, y, sizex, sizey, s, w, Name);
-		colors=window.getDark();
+		colors=window.getUItheme();
 	}
 
 	public button(int x, int y, int sizex, int sizey, int idle, int selected, scene s, window w) {
 		super(x, y, sizex, sizey, s, w, "button");
 		colmain = idle;
 		colpressed = selected;
-		colors=window.getDark();
+		colors=window.getUItheme();
 
 	}
 
@@ -56,21 +56,21 @@ public class button extends UIelement {
 
 
 		if (hover) {
-			b.fill(colors.get("c_hover"));
+			b.fill(colors.c_hover);
 			b.rect(x, y, sizex, sizey);
-			b.fill(colors.get("c_text_color"));
+			b.fill(colors.c_text_color);
 			b.textSize(15);
 			b.textAlign(b.CENTER, b.CENTER);
 			b.text(name, x, y,  sizex, sizey);
 			if (pressed) {
-			b.fill(colors.get("c_light"));
+			b.fill(colors.c_light);
 			b.rect(x, y,  sizex, sizey);
 			b.text(name, x, y,  sizex, sizey);
 			}
 		} else {
-			b.fill(colors.get("c_light"));
+			b.fill(colors.c_light);
 			b.rect(x, y,  sizex, sizey);
-			b.fill(colors.get("c_text_color"));
+			b.fill(colors.c_text_color);
 			b.textSize(15);
 			b.textAlign(b.CENTER, b.CENTER);
 			b.text(name, x, y,  sizex, sizey);
