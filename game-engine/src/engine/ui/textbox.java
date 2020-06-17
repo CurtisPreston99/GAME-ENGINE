@@ -14,7 +14,6 @@ public class textbox extends UIelement {
 	boolean selected = false;
 	int pointer = 0;
 	public UItheme colors;
-	boolean hover = false;
 
 	public textbox(int x, int y, int sizex, int sizey, scene s, window w, String name) {
 		super(x, y, sizex, sizey, s, w, name);
@@ -38,7 +37,6 @@ public class textbox extends UIelement {
 
 	@Override
 	public void update(window w) {
-		hover = w.mouseX >= x && w.mouseX <= x + sizex && w.mouseY >= y && w.mouseY <= y + sizey;
 	}
 
 	@Override
@@ -54,7 +52,7 @@ public class textbox extends UIelement {
 			b.textAlign(b.CENTER, b.CENTER);
 			b.text(text, x, y, sizex, sizey);
 
-		} else if (hover) {
+		} else if (hover()) {
 			b.fill(colors.c_hover);
 			b.rect(x, y, sizex, sizey);
 			b.fill(colors.c_text_color);
@@ -82,8 +80,7 @@ public class textbox extends UIelement {
 	@Override
 	public void click() {
 		if (w.input.Mouse.left) {
-			if (w.input.Mouse.X() > x && w.input.Mouse.X() < x + sizex && w.input.Mouse.Y() > y
-					&& w.input.Mouse.Y() < y + sizey) {
+			if (hover()) {
 
 				selected = true;
 

@@ -10,7 +10,6 @@ import processing.core.PGraphics;
 public class slider extends UIelement {
     float maxVal, minVal;
     float slider = 0;
-    boolean hover;
     boolean clicked;
     public UItheme colors;
 
@@ -58,7 +57,7 @@ public class slider extends UIelement {
         b.rect(x, y + sizey / 2, pos, 4, 2);
 
         // Hover
-        if (hover) {
+        if (hover()) {
             b.fill(colors.c_hover);
             if (clicked) {
                 b.fill(colors.c_hover, 100);
@@ -83,8 +82,6 @@ public class slider extends UIelement {
 
     @Override
     public void update(window w) {
-
-        hover = w.mouseX >= x && w.mouseX <= x + sizex && w.mouseY >= y && w.mouseY <= y + sizey;
 
     }
 

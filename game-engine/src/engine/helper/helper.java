@@ -9,9 +9,11 @@ import engine.window;
 import engine.sprite.spriteGroup;
 import engine.ui.UItheme;
 import engine.ui.button;
+import engine.ui.imageButton;
 import engine.ui.slider;
 import engine.ui.textbox;
 import engine.ui.toggle;
+import processing.core.PImage;
 
 public class helper extends window {
 	public static void main(String[] args) {
@@ -33,6 +35,8 @@ public class helper extends window {
 		initscreen.addUIEntity(new toggle(10, 100, 100, 40, initscreen, this, "toggle"), "toggle");
 		initscreen.addUIEntity(new slider(10, 200, 100, 40, initscreen, this, "slider"), "slider");
 		initscreen.addUIEntity(new textbox(10, 300, 150, 80, initscreen, this, "textbox"), "textbox");
+		PImage l = Loader.loadImage("images/almond.jpg");
+		initscreen.addUIEntity(new imageButton(10, 300,l , initscreen, this,"btest"), "image button");
 	}
 
 	@Override

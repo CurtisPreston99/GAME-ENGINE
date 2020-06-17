@@ -10,7 +10,6 @@ public class toggle extends UIelement {
 	Boolean toggle = false;
 	Boolean can = true;
 	public UItheme colors;
-	boolean hover;
 
 	public toggle(int x, int y, int sizex, int sizey, scene s, window w, String name) {
 		super(x, y, sizex, sizey, s, w, name);
@@ -24,9 +23,6 @@ public class toggle extends UIelement {
 	@Override
 	public void update(window w) {
 
-		hover= w.mouseX >= x && w.mouseX <= x+sizex && 
-		w.mouseY >= y && w.mouseY <= y+sizey;
-
 	}
 
 	@Override
@@ -38,7 +34,7 @@ public class toggle extends UIelement {
 		if(toggle){
 			pos=sizex-sizey;
 		}
-		if (hover)
+		if (hover())
 		{
 	
 		b.noStroke();

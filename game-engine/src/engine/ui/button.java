@@ -9,29 +9,18 @@ import processing.core.PConstants;
 import processing.core.PGraphics;
 
 public class button extends UIelement {
-
-	public int colmain = w.color(0, 255, 0);
-	public int colpressed = w.color(255, 0, 0);
+	
 	public Boolean pressed = false;
 	public UItheme colors;
-	boolean hover=false;
 
 	public button(int x, int y, int sizex, int sizey, scene s, window w) {
-		super(x, y, sizex, sizey, s, w, "button");
+		super(x, y, sizex, sizey, s, w, "");
 		colors=window.getUItheme();
 	}
 
 	public button(int x, int y, int sizex, int sizey, String Name, scene s, window w) {
 		super(x, y, sizex, sizey, s, w, Name);
 		colors=window.getUItheme();
-	}
-
-	public button(int x, int y, int sizex, int sizey, int idle, int selected, scene s, window w) {
-		super(x, y, sizex, sizey, s, w, "button");
-		colmain = idle;
-		colpressed = selected;
-		colors=window.getUItheme();
-
 	}
 
 	public Boolean getVal() {
@@ -46,8 +35,8 @@ public class button extends UIelement {
 	@Override
 	public void update(window w) {
 
-		hover= w.mouseX >= x && w.mouseX <= x+sizex && 
-		w.mouseY >= y && w.mouseY <= y+sizey;
+		// hover= w.mouseX >= x && w.mouseX <= x+sizex && 
+		// w.mouseY >= y && w.mouseY <= y+sizey;
 
 	}
 
@@ -55,7 +44,7 @@ public class button extends UIelement {
 	public void draw(PGraphics b) {
 
 
-		if (hover) {
+		if (hover()) {
 			b.fill(colors.c_hover);
 			b.rect(x, y, sizex, sizey);
 			b.fill(colors.c_text_color);
