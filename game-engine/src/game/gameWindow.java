@@ -28,25 +28,21 @@ public class gameWindow extends engine.window {
 	@Override
 	public void update() {
 //		println(input.Mouse.toString());
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void keyUpdate() {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void mouseClick() {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void mouseWheel() {
-		// TODO Auto-generated method stub
 		
 	}
 

@@ -1,6 +1,8 @@
 package engine.helper;
 
 
+import engine.loader;
+
 // https://www.youtube.com/watch?v=h1o5UzKfZcQ
 
 
@@ -32,11 +34,13 @@ public class helper extends window {
 		initscreen.addUIEntity(new button(10, 10, 100, 30, initscreen, this), "homebutton");
 		initscreen.addUIEntity(new toggle(400, 10, 100, 30,initscreen, this,"UI switch"), "UI switch");
 		initscreen.addUIEntity(new button(300, 10, 100, 30, "file test", initscreen, this), "savingTest");
+		initscreen.addUIEntity(new button(300, 100, 100, 30, "theme loader", initscreen, this), "theme");
 		initscreen.addUIEntity(new toggle(10, 100, 100, 40, initscreen, this, "toggle"), "toggle");
 		initscreen.addUIEntity(new slider(10, 200, 100, 40, initscreen, this, "slider"), "slider");
 		initscreen.addUIEntity(new textbox(10, 300, 150, 80, initscreen, this, "textbox"), "textbox");
 		PImage l = Loader.loadImage("images/almond.jpg");
 		initscreen.addUIEntity(new imageButton(10, 300,l , initscreen, this,"btest"), "image button");
+		
 	}
 
 	@Override
@@ -56,7 +60,13 @@ public class helper extends window {
 			slider slider = (slider) getSelectedScene().UIentities.get("slider");
 
 			button save = (button) getSelectedScene().UIentities.get("savingTest");
+			button themeSw = (button) getSelectedScene().UIentities.get("theme");
 			toggle UI = (toggle) getSelectedScene().UIentities.get("UI switch");
+			
+			if(themeSw.getVal()){
+				themeSw.colors.loadAndSet("", Loader);
+			}
+
 			if(UI.getVal()){
 				UItheme.Singleton().setDark();
 			}else{

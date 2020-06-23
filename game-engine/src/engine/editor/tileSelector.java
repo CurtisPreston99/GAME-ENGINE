@@ -20,7 +20,7 @@ public class tileSelector extends button {
 	}
 
 	public tileSelector(int x, int y, int sizex, int sizey, int idle, int selected, scene s, window w) {
-		super(x, y, sizex, sizey, idle, selected, s, w);
+		super(x, y, sizex, sizey, s, w);
 	}
 
 	public tileSelector(int x, int y, tile[] tiles, scene s, window w, String name) {
@@ -32,7 +32,7 @@ public class tileSelector extends button {
 	@Override
 	public void draw(PGraphics b) {
 		if (pressed) {
-			b.fill(colpressed);
+			b.fill(colors.c_hover);
 		}
 		b.rect(x, y, sizex, sizey);
 		b.textAlign(PConstants.CENTER, PConstants.CENTER);

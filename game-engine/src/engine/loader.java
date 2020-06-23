@@ -32,7 +32,7 @@ public class loader {
 
 	public String loadTxt(String fname) throws Exception {
 
-		String i = textBuffer.get(fname);
+		String i = null;
 
 		if (i == null) {
 			String[] lines = parrent.loadStrings(fname);

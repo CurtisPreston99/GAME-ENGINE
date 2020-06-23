@@ -39,7 +39,6 @@ class method extends executable {
 
     @Override
     int execute(HashMap<String, variable> var, cgel cg) {
-        // TODO Auto-generated method stub
         for (String line : methodLines) {
             if (line.matches(".*?=.*")) {// if setting a variable in format name=value or name=equation
 

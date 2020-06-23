@@ -2,11 +2,11 @@ package engine.ui;
 
 import java.util.HashMap;
 
+import engine.loader;
+
 public class UItheme {
 
-
-    
-    private static UItheme single_instance=null; 
+    private static UItheme single_instance = null;
 
     public int c_very_dark;
     public int c_dark;
@@ -15,35 +15,52 @@ public class UItheme {
     public int c_hover;
     public int c_text_color;
 
+    public static HashMap<String, Integer> uiDark = new HashMap<String, Integer>() {
+        {
+            put("c_very_dark", -14408402);
+            put("c_dark", -14868180);
+            put("c_mid", -13878713);
+            put("c_light", -13418416);
+            put("c_hover", -14640224);
+            put("c_text_color", -1);
+        }
+    };
 
-    public static HashMap<String, Integer> uiDark = new HashMap<String, Integer>(){{
-		put("c_very_dark",-14408402);
-		put("c_dark", -14868180);
-		put("c_mid", -13878713);
-		put("c_light",-13418416);
-		put("c_hover", -14640224);
-		put("c_text_color",-1);
-    }};
+    public static HashMap<String, Integer> uiLight = new HashMap<String, Integer>() {
+        {
+            put("c_very_dark", -10197916);
+            put("c_dark", -6908266);
+            put("c_mid", -3618616);
+            put("c_light", -328966);
+            put("c_hover", -14640224);
+            put("c_text_color", -16119286);
+        }
+    };
 
-    public static HashMap<String, Integer> uiLight = new HashMap<String, Integer>(){{
-		put("c_very_dark", -10197916);
-		put("c_dark", -6908266);
-		put("c_mid", -3618616);
-		put("c_light", -328966);
-		put("c_hover", -14640224);
-		put("c_text_color", -16119286);
-    }};
-    
-
-    private UItheme(){
-        c_very_dark=uiDark.get("c_very_dark");
-        c_mid=uiDark.get("c_mid");
-        c_light=uiDark.get("c_light");
-        c_hover=uiDark.get("c_hover");
-        c_text_color=uiDark.get("c_text_color");
-        c_dark=uiDark.get("c_dark");
+    private UItheme() {
+        c_very_dark = uiDark.get("c_very_dark");
+        c_mid = uiDark.get("c_mid");
+        c_light = uiDark.get("c_light");
+        c_hover = uiDark.get("c_hover");
+        c_text_color = uiDark.get("c_text_color");
+        c_dark = uiDark.get("c_dark");
 
     }
+
+    public void loadAndSet(String fname, loader l) {
+        String file="";
+        try {
+            file = l.loadTxt(fname);
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            return;
+        }
+
+        System.out.println(file);
+
+        
+    }
+
 
 
     public boolean setTheme(HashMap<String, Integer> newtheme){
