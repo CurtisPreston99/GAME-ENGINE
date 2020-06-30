@@ -62,7 +62,7 @@ public class player extends entity {
             }
         }
 
-        // platfor colition
+        // platform colition
         if(platforms.colPlayer(x+xspd, y, sizex,sizey)){
             xspd=0;
         }
@@ -76,6 +76,12 @@ public class player extends entity {
             yspd=0;
             xspd=0;
         }
+
+        // side of screen col
+        if(x+xspd<0 || x+xspd+sizex>w.width){
+            xspd=0;
+        }
+
         // moving player
         if(xspd<-maxspd){
             xspd=-maxspd;

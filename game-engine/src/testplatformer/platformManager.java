@@ -1,94 +1,91 @@
 package testplatformer;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import engine.scene;
 import engine.window;
 import engine.entity.entity;
+import engine.ui.slider;
 import processing.core.PGraphics;
 import processing.data.JSONArray;
 import processing.data.JSONObject;
 
 class platformManager extends entity {
-    JSONObject levels;
+    JSONObject json;
     int yoffset = 0;
-    int[][] level;
+    String selected;
+    HashMap<String, platformL> level = new HashMap<String, platformL>();
 
     public platformManager(scene s, window w) {
         super(0, 0, w.width, s, w);
         load();
         room("level1");
     }
-    
-    public void room(String l){
-        JSONArray lev= levels.getJSONArray(l);
 
-        level= new int[lev.size()][lev.getJSONArray(0).size()];
-        
-        for(int i=0;i<lev.size();i++){
-            JSONArray row=lev.getJSONArray(i);
-            for(int e=0;e<row.size();e++){
-                level[i][e]=row.getInt(e);
-                System.out.print(level[i][e]);
-            }
-            System.out.println();
-        }
+    public void room(String l) {
+        selected = l;
     }
 
     public void load() {
         try {
-            levels = w.Loader.loadJSON("testplatformer");
+            json = w.Loader.loadJSON("testplatformer");
+            selected = json.keys().toArray()[0].toString();
+            for (Object s : json.keys()) {
+                System.out.println(s.toString());
+                level.put(s.toString(), new platformL(json.getJSONObject(s.toString())));
+            }
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
 
-    public void UPDateoffset(int i){
-        yoffset+=i;
+    public void UPDateoffset(int i) {
+        yoffset += i;
     }
 
+    public boolean colPlayer(int x, int y, int xlen, int ylen) {
+        int[][] map = level.get(selected).level;
 
-    public boolean colPlayer(int x,int y,int xlen, int ylen){
-
-        int blockWidth= w.width/(level[0].length);
-        int blockHeight=blockWidth;
-
-
+        int blockWidth = w.width / (map[0].length);
+        int blockHeight = blockWidth;
 
         // top left
-        int blockonX=(x/blockWidth);
-        int blockonY=(y+yoffset)/blockHeight;
+        int blockonX = (x / blockWidth);
+        int blockonY = (y + yoffset) / blockHeight;
 
-        if(blockonX<level[0].length && blockonX>=0 && blockonY>=0 && blockonY<level.length ){
-            if(level[blockonY][blockonX]==1){
+        if (blockonX < map[0].length && blockonX >= 0 && blockonY >= 0 && blockonY < map.length) {
+            if (map[blockonY][blockonX] == 1) {
                 return true;
             }
         }
         // top right
-        blockonX=((x+xlen)/blockWidth);
-        blockonY=(y+yoffset)/blockHeight;
+        blockonX = ((x + xlen) / blockWidth);
+        blockonY = (y + yoffset) / blockHeight;
 
-        if(blockonX<level[0].length && blockonX>=0 && blockonY>=0 && blockonY<level.length ){
-            if(level[blockonY][blockonX]==1){
+        if (blockonX < map[0].length && blockonX >= 0 && blockonY >= 0 && blockonY < map.length) {
+            if (map[blockonY][blockonX] == 1) {
                 return true;
             }
         }
 
         // bottom right
-        blockonX=((x+xlen)/blockWidth);
-        blockonY=(y+yoffset+ylen)/blockHeight;
+        blockonX = ((x + xlen) / blockWidth);
+        blockonY = (y + yoffset + ylen) / blockHeight;
 
-        if(blockonX<level[0].length && blockonX>=0 && blockonY>=0 && blockonY<level.length ){
-            if(level[blockonY][blockonX]==1){
+        if (blockonX < map[0].length && blockonX >= 0 && blockonY >= 0 && blockonY < map.length) {
+            if (map[blockonY][blockonX] == 1) {
                 return true;
             }
         }
 
         // bottom left
-        blockonX=((x)/blockWidth);
-        blockonY=(y+yoffset+ylen)/blockHeight;
+        blockonX = ((x) / blockWidth);
+        blockonY = (y + yoffset + ylen) / blockHeight;
 
-        if(blockonX<level[0].length && blockonX>=0 && blockonY>=0 && blockonY<level.length ){
-            if(level[blockonY][blockonX]==1){
+        if (blockonX < map[0].length && blockonX >= 0 && blockonY >= 0 && blockonY < map.length) {
+            if (map[blockonY][blockonX] == 1) {
                 return true;
             }
         }
@@ -98,31 +95,45 @@ class platformManager extends entity {
 
     @Override
     public void update(window w) {
-        
+
     }
 
     @Override
     public void draw(PGraphics b) {
-        int blockWidth= b.width/(level[y].length);
-        int blockHeight=blockWidth;
+
+        int[][] map = level.get(selected).level;
+
+        int blockWidth = b.width / (map[y].length);
+        int blockHeight = blockWidth;
         // System.out.println("--------");
-        for(int y=0;y<level.length;y++){
-            for(int x=0;x<level[y].length;x++){
+        for (int y = 0; y < map.length; y++) {
+            for (int x = 0; x < map[y].length; x++) {
                 // System.out.print(level[y][x]);
-                if(level[y][x]!=1){
+                if (map[y][x] == 1) {
                     // print(ln(x))
-                    b.rect((x)*blockWidth,(y*blockHeight)-yoffset,blockWidth,blockHeight);
+                    b.rect((x) * blockWidth, (y * blockHeight) - yoffset, blockWidth, blockHeight);
                 }
             }
             // System.out.println();
+        }
+
+        ArrayList<int[]> gems = level.get(selected).gems;
+        for(int i=0;i<gems.size();i++){
+            int[] cord=gems.get(i);
+            b.fill(0,255,0);
+            b.rect((cord[1]) * blockWidth, (cord[0] * blockHeight) - yoffset, blockWidth, blockHeight);
+
         }
 
     }
 
     @Override
     public void click() {
-        // TODO Auto-generated method stub
-
+        if (selected == "level1") {
+            selected = "level2";
+        } else {
+            selected = "level1";
+        }
     }
 
     @Override
@@ -130,6 +141,5 @@ class platformManager extends entity {
         // TODO Auto-generated method stub
 
     }
-
 
 }

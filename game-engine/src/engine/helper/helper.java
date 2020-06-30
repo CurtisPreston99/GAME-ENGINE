@@ -38,8 +38,8 @@ public class helper extends window {
 		initscreen.addUIEntity(new toggle(10, 100, 100, 40, initscreen, this, "toggle"), "toggle");
 		initscreen.addUIEntity(new slider(10, 200, 100, 40, initscreen, this, "slider"), "slider");
 		initscreen.addUIEntity(new textbox(10, 300, 150, 80, initscreen, this, "textbox"), "textbox");
-		PImage l = Loader.loadImage("images/almond.jpg");
-		initscreen.addUIEntity(new imageButton(10, 300,l , initscreen, this,"btest"), "image button");
+		// PImage l = Loader.loadImage("images/almond.jpg");
+		// initscreen.addUIEntity(new imageButton(10, 300,l , initscreen, this,"btest"), "image button");
 		
 	}
 
