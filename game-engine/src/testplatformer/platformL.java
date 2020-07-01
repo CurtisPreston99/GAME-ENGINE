@@ -9,11 +9,13 @@ import processing.data.JSONArray;
 public class platformL {
     int[][] level;
     ArrayList<int[]> gems= new ArrayList<int[]>();
+    ArrayList<JSONObject> doors= new ArrayList<JSONObject>();
 
 
     public platformL(JSONObject l){
         JSONArray lev= l.getJSONArray("map");
         JSONArray gem= l.getJSONArray("gems");
+        JSONArray door= l.getJSONArray("doors");
         
         level= new int[lev.size()][lev.getJSONArray(0).size()];
         
@@ -28,6 +30,10 @@ public class platformL {
 
         for(int i=0;i<gem.size();i++){
             gems.add(gem.getJSONArray(i).getIntArray());
+        }
+
+        for(int i=0;i<door.size();i++){
+            doors.add(door.getJSONObject(i));
         }
     }
 

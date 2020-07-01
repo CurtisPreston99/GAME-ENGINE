@@ -91,11 +91,11 @@ public class player extends entity {
         }
         
         
-        
+        // moving player
         x += xspd;
         y += yspd;
 
-
+        // moving cammera
         if(y<100){
             platforms.UPDateoffset(-20);
             y=y+20;
@@ -113,6 +113,8 @@ public class player extends entity {
             platforms.UPDateoffset(40);
             y=y-40;
         }
+
+        //
         
 
     }

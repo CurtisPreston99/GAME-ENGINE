@@ -45,6 +45,9 @@ class platformManager extends entity {
         yoffset += i;
     }
 
+
+
+
     public boolean colPlayer(int x, int y, int xlen, int ylen) {
         int[][] map = level.get(selected).level;
 
@@ -98,6 +101,10 @@ class platformManager extends entity {
 
     }
 
+    public platformL getSelectedPlatform(){
+        return level.get(selected);
+    }
+
     @Override
     public void draw(PGraphics b) {
 
@@ -124,6 +131,17 @@ class platformManager extends entity {
             b.rect((cord[1]) * blockWidth, (cord[0] * blockHeight) - yoffset, blockWidth, blockHeight);
 
         }
+
+        ArrayList<JSONObject> doors = level.get(selected).doors;
+        for(int i=0;i<doors.size();i++){
+            // JSONObject door=doors.get(i);
+            b.fill(104,68,39);
+            int[] cord=doors.get(i).getJSONArray("cords").getIntArray();
+            b.rect(cord[1] * blockWidth, (cord[0] * blockHeight) - yoffset, blockWidth, blockHeight);
+
+        }
+
+
 
     }
 
