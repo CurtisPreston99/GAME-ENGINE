@@ -3,13 +3,16 @@ package engine;
 import java.util.HashMap;
 
 import engine.entity.entity;
+import engine.ui.UIelement;
 import processing.core.PGraphics;
 
 public class scene {
 	public window Parrent;
 	String id = "";
 	int background;
-	public HashMap<String, entity> UIentities = new HashMap<>();
+
+	public HashMap<String, entity> entities = new HashMap<>();
+	public HashMap<String, UIelement> UIentities = new HashMap<>();
 
 	public scene(window Parrent, String id) {
 		this.Parrent = Parrent;
@@ -17,11 +20,21 @@ public class scene {
 		this.background = Parrent.color(255, 255, 255);
 	}
 
-	public void addUIEntity(entity e, String name) {
+
+	public void addEntity(entity e, String name) {
+		entities.put(name, e);
+	}
+
+	public entity getEntity(String name) {
+		return entities.get(name);
+	}
+
+
+	public void addUIEntity(UIelement e, String name) {
 		UIentities.put(name, e);
 	}
 
-	public entity getUIEntity(String name) {
+	public UIelement getUIEntity(String name) {
 		return UIentities.get(name);
 	}
 
@@ -30,7 +43,10 @@ public class scene {
 	}
 
 	public void update() {
-		for (entity e : UIentities.values()) {
+		for (entity e : entities.values()) {
+			e.update(Parrent);
+		}
+		for (UIelement e : UIentities.values()) {
 			e.update(Parrent);
 		}
 		if (Parrent.mousePressed) {
@@ -52,6 +68,9 @@ public class scene {
 	}
 
 	public void draw(PGraphics frame) {
+		for (entity e : entities.values()) {
+			e.draw(frame);
+		}
 		for (entity e : UIentities.values()) {
 			e.draw(frame);
 		}

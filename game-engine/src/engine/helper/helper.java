@@ -1,16 +1,15 @@
 package engine.helper;
 
-
 import engine.loader;
 
 // https://www.youtube.com/watch?v=h1o5UzKfZcQ
-
 
 import engine.scene;
 import engine.window;
 import engine.sprite.spriteGroup;
 import engine.ui.UItheme;
 import engine.ui.button;
+import engine.ui.card;
 import engine.ui.imageButton;
 import engine.ui.slider;
 import engine.ui.textbox;
@@ -38,6 +37,11 @@ public class helper extends window {
 		initscreen.addUIEntity(new toggle(10, 100, 100, 40, initscreen, this, "toggle"), "toggle");
 		initscreen.addUIEntity(new slider(10, 200, 100, 40, initscreen, this, "slider"), "slider");
 		initscreen.addUIEntity(new textbox(10, 300, 150, 80, initscreen, this, "textbox"), "textbox");
+		card ca = new card(400,400,200,100,initscreen,this,"card");
+
+		initscreen.addUIEntity(ca, "cards");
+
+		
 		// PImage l = Loader.loadImage("images/almond.jpg");
 		// initscreen.addUIEntity(new imageButton(10, 300,l , initscreen, this,"btest"), "image button");
 		

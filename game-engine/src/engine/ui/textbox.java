@@ -26,7 +26,7 @@ public class textbox extends UIelement {
 	}
 
 	@Override
-	void ValUpdate() {
+	public void ValUpdate() {
 		// TODO Auto-generated method stub
 
 	}

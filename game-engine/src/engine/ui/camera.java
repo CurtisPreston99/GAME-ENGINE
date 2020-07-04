@@ -23,7 +23,7 @@ public class camera extends UIelement {
 	}
 
 	@Override
-	void ValUpdate() {
+	public void ValUpdate() {
 
 	}
 

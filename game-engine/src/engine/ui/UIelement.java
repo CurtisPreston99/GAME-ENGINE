@@ -24,7 +24,7 @@ public abstract class UIelement extends entity {
 
 	}
 
-	abstract void ValUpdate();
+	public abstract void ValUpdate();
 
 	@Override
 	public void draw(PGraphics b) {
