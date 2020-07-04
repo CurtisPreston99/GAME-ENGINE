@@ -45,9 +45,6 @@ class platformManager extends entity {
         yoffset += i;
     }
 
-
-
-
     public boolean colPlayer(int x, int y, int xlen, int ylen) {
         int[][] map = level.get(selected).level;
 
@@ -159,5 +156,59 @@ class platformManager extends entity {
         // TODO Auto-generated method stub
 
     }
+
+	public String DoorCol(int x, int y, int sizex, int sizey) {
+        int[][] tiles=level.get(selected).level;
+        ArrayList<JSONObject> map = level.get(selected).doors;
+
+        int[][] cords=new int[map.size()][2];
+        for (int i=0;i<map.size();i++){
+            // System.out.println(map.get(i));
+            int[] c=map.get(i).getJSONArray("cords").getIntArray();
+            // System.out.println(c);
+            cords[i]=c;
+
+
+        }
+        int blockWidth = w.width / (tiles[0].length);
+        int blockHeight = blockWidth;
+
+
+
+        // top left
+        int blockonXtl = (x / blockWidth);
+        int blockonYtl = (y + yoffset) / blockHeight;
+
+        // top right
+        int blockonXtr = ((x + sizex) / blockWidth);
+        int blockonYtr = (y + yoffset) / blockHeight;
+
+        // bottom right
+        int blockonXbr = ((x + sizex) / blockWidth);
+        int blockonYbr = (y + yoffset + sizey) / blockHeight;
+        
+        // bottom left
+        int blockonXbl = ((x) / blockWidth);
+        int blockonYbl = (y + yoffset + sizey) / blockHeight;
+
+        for(int i=0;i<cords.length;i++){
+            if(cords[i][0]==blockonYtl&&cords[i][1]==blockonXtl){
+                return map.get(i).getString("to");
+            }
+
+            if(cords[i][0]==blockonYtr&&cords[i][1]==blockonXtr){
+                return map.get(i).getString("to");
+            }
+            if(cords[i][0]==blockonYbr&&cords[i][1]==blockonXbr){
+                return map.get(i).getString("to");
+            }
+            if(cords[i][0]==blockonYbl&&cords[i][1]==blockonXbl){
+                return map.get(i).getString("to");
+            }
+
+
+        }
+        return "";
+	}
 
 }

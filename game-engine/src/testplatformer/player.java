@@ -45,9 +45,7 @@ public class player extends entity {
             xspd -= acc;
 
         }
-        if (w.input.get('s')) {
-            yspd += acc;
-        }
+        
         if (w.input.get('d')) {
             xspd += acc;
         }
@@ -59,6 +57,13 @@ public class player extends entity {
 
             if (xspd > 0) {
                 xspd = xspd / 2;
+            }
+        }
+
+        if (w.input.get('s')) {
+            String l=platforms.DoorCol(x, y, sizex,sizey);
+            if(l!=""){
+                platforms.room(l);
             }
         }
 
