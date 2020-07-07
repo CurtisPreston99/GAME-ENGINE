@@ -38,7 +38,7 @@ public class helper extends window {
 		initscreen.addUIEntity(new slider(10, 200, 100, 40, initscreen, this, "slider"), "slider");
 		initscreen.addUIEntity(new textbox(10, 300, 150, 80, initscreen, this, "textbox"), "textbox");
 		card ca = new card(400,400,200,100,initscreen,this,"card");
-
+		ca.addElemend(new toggle(0,0,100,20, initscreen, this, "toggle"));
 		initscreen.addUIEntity(ca, "cards");
 
 		

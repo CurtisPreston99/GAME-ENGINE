@@ -33,8 +33,6 @@ public class slider extends UIelement {
         if (slider == 0) {
             return 0;
         }
-        // (slider / sizex)* (maxVal-minVal)+minVal
-
         Float value = (slider / sizex) * (maxVal - minVal) + minVal;
 
         return value;

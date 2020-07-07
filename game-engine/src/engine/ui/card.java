@@ -12,6 +12,7 @@ public class card extends UIelement {
     private boolean title = false;
     private String titleText = "";
     private UItheme colors = UItheme.Singleton();
+    private int titleSize=40;
 
     ArrayList<UIelement> UIList=new ArrayList<UIelement>();
 
@@ -28,6 +29,34 @@ public class card extends UIelement {
     public void ValUpdate() {
     }
 
+
+    public void addElemend(UIelement e){
+        UIList.add(e);
+    }
+
+    @Override
+	public void click() {
+        // hacky but should work
+        
+        mouse mouse = w.input.Mouse;
+
+        int mX=mouse.X();
+        int mY=mouse.Y();
+
+        w.mouseX=mX-x;
+        w.mouseY=mY-y-titleSize;
+
+        for(UIelement e:UIList){
+            e.click();
+
+        }
+
+
+
+        w.mouseX=mX;
+        w.mouseY=mY;
+    }
+
     @Override
     public void update(window w) {
         mouse mouse = w.input.Mouse;
@@ -38,13 +67,30 @@ public class card extends UIelement {
                 y=y+(mouse.Y()-mouse.prevY());
             }
             if(mouse.X()>x&&mouse.X()<x+sizex){
-                if(mouse.Y()>y&&mouse.Y()<y+sizey){
+                if(mouse.Y()>y&&mouse.Y()<y+titleSize){
                     pressed=true;
                 }
             }
         }else{
             pressed=false;
         }
+
+        // hacky but should work
+        int mX=mouse.X();
+        int mY=mouse.Y();
+
+        w.mouseX=mX-x;
+        w.mouseY=mY-y-titleSize;
+
+        for(UIelement e:UIList){
+            e.update(w);
+
+        }
+
+
+
+        w.mouseX=mX;
+        w.mouseY=mY;
     }
 
     @Override
@@ -52,6 +98,7 @@ public class card extends UIelement {
         // TODO Auto-generated method stub
 
     }
+
     @Override
 	public void draw(PGraphics b) {
 
@@ -60,7 +107,7 @@ public class card extends UIelement {
         b.fill(0, 0, 0, 15);
         b.rect(x+5, y+5, sizex, sizey);
         b.fill(colors.c_light);
-        b.rect(x, y, sizex, 40, 2, 2, 0, 0);
+        b.rect(x, y, sizex, titleSize, 2, 2, 0, 0);
         b.textSize(15);
         b.textAlign(b.CENTER, b.CENTER);
         b.fill(colors.c_text_color);
@@ -69,7 +116,29 @@ public class card extends UIelement {
         }
         b.fill(colors.c_mid);
 
-        b.rect(x, y+40, sizex, sizey-40, 0, 0, 2, 2);
+        b.rect(x, y+titleSize, sizex, sizey-titleSize, 0, 0, 2, 2);
+
+        mouse mouse = w.input.Mouse;
+
+        int mX=mouse.X();
+        int mY=mouse.Y();
+
+        w.mouseX=mX-x;
+        w.mouseY=mY-y-titleSize;
+        
+
+        b.pushMatrix();
+        b.translate(x, y+titleSize);
+
+        for(UIelement e:UIList){
+            e.draw(b);
+        }
+        b.popMatrix();
+
+
+        w.mouseX=mX;
+        w.mouseY=mY;
+
         
     }
 
