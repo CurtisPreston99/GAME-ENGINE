@@ -10,6 +10,7 @@ import engine.sprite.spriteGroup;
 import engine.ui.UItheme;
 import engine.ui.button;
 import engine.ui.card;
+import engine.ui.dropdown;
 import engine.ui.imageButton;
 import engine.ui.slider;
 import engine.ui.textbox;
@@ -40,6 +41,7 @@ public class helper extends window {
 		card ca = new card(400,400,200,100,initscreen,this,"card");
 		ca.addElemend(new toggle(0,0,100,20, initscreen, this, "toggle"));
 		initscreen.addUIEntity(ca, "cards");
+		initscreen.addUIEntity(new dropdown(300, 150, 150, 40, new String[]{"a","b","c","d","e","f"}, initscreen, this, "drop down test"), "drop down test");
 
 		
 		// PImage l = Loader.loadImage("images/almond.jpg");

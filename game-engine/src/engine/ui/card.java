@@ -10,6 +10,7 @@ import processing.core.PGraphics;
 public class card extends UIelement {
     private boolean dragable = true;
     private boolean title = false;
+    private boolean wrapup = false;
     private String titleText = "";
     private UItheme colors = UItheme.Singleton();
     private int titleSize=40;
@@ -36,30 +37,40 @@ public class card extends UIelement {
 
     @Override
 	public void click() {
-        // hacky but should work
-        
         mouse mouse = w.input.Mouse;
 
-        int mX=mouse.X();
-        int mY=mouse.Y();
 
-        w.mouseX=mX-x;
-        w.mouseY=mY-y-titleSize;
-
-        for(UIelement e:UIList){
-            e.click();
-
+        if(mouse.right){
+            if(mouse.X()>x&&mouse.X()<x+sizex){
+                if(mouse.Y()>y&&mouse.Y()<y+titleSize){
+                    wrapup=!wrapup;
+                }
+            }
         }
+        
+        if(!wrapup){
+            int mX=mouse.X();
+            int mY=mouse.Y();
+
+            w.mouseX=mX-x;
+            w.mouseY=mY-y-titleSize;
+
+            for(UIelement e:UIList){
+                e.click();
+
+            }
 
 
 
-        w.mouseX=mX;
-        w.mouseY=mY;
+            w.mouseX=mX;
+            w.mouseY=mY;
+        }
     }
 
     @Override
     public void update(window w) {
         mouse mouse = w.input.Mouse;
+        
         if(mouse.left){
             if(pressed){
                         
@@ -74,6 +85,8 @@ public class card extends UIelement {
         }else{
             pressed=false;
         }
+
+        
 
         // hacky but should work
         int mX=mouse.X();
@@ -106,39 +119,43 @@ public class card extends UIelement {
         //Shadow
         b.fill(0, 0, 0, 15);
         b.rect(x+5, y+5, sizex, sizey);
+        // title rect
         b.fill(colors.c_light);
         b.rect(x, y, sizex, titleSize, 2, 2, 0, 0);
         b.textSize(15);
         b.textAlign(b.CENTER, b.CENTER);
         b.fill(colors.c_text_color);
+        // tiltle text
         if(title){
             b.text(titleText, x, y, sizex, 40);
         }
-        b.fill(colors.c_mid);
+        // main portoion
+        if(!wrapup){
+            b.fill(colors.c_mid);
 
-        b.rect(x, y+titleSize, sizex, sizey-titleSize, 0, 0, 2, 2);
+            b.rect(x, y+titleSize, sizex, sizey-titleSize, 0, 0, 2, 2);
 
-        mouse mouse = w.input.Mouse;
+            mouse mouse = w.input.Mouse;
 
-        int mX=mouse.X();
-        int mY=mouse.Y();
+            int mX=mouse.X();
+            int mY=mouse.Y();
 
-        w.mouseX=mX-x;
-        w.mouseY=mY-y-titleSize;
-        
+            w.mouseX=mX-x;
+            w.mouseY=mY-y-titleSize;
+            
 
-        b.pushMatrix();
-        b.translate(x, y+titleSize);
+            b.pushMatrix();
+            b.translate(x, y+titleSize);
 
-        for(UIelement e:UIList){
-            e.draw(b);
+            for(UIelement e:UIList){
+                e.draw(b);
+            }
+            b.popMatrix();
+
+
+            w.mouseX=mX;
+            w.mouseY=mY;
         }
-        b.popMatrix();
-
-
-        w.mouseX=mX;
-        w.mouseY=mY;
-
         
     }
 

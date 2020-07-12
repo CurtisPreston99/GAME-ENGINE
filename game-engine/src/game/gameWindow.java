@@ -18,8 +18,8 @@ public class gameWindow extends engine.window {
 	@Override
 	public void setup() {
 		scene initscreen = new scene(this, "home");
-		initscreen.addUIEntity(new player(150, 150, 20, initscreen, this), "player");
-		initscreen.addUIEntity(new colbox(300, 300, 20, initscreen, this), "col");
+		initscreen.addEntity(new player(150, 150, 20, initscreen, this), "player");
+		initscreen.addEntity(new colbox(300, 300, 20, initscreen, this), "col");
 		addScene(initscreen);
 		selectScene("home");
 

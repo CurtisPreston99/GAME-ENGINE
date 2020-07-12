@@ -30,7 +30,6 @@ class platformManager extends entity {
     public void load() {
         try {
             json = w.Loader.loadJSON("testplatformer");
-            selected = json.keys().toArray()[0].toString();
             for (Object s : json.keys()) {
                 System.out.println(s.toString());
                 level.put(s.toString(), new platformL(json.getJSONObject(s.toString())));
@@ -153,8 +152,9 @@ class platformManager extends entity {
 
     @Override
     public void key() {
-        // TODO Auto-generated method stub
-
+        if(w.input.Lastkey=='r'){
+            load();
+        }
     }
 
 	public String DoorCol(int x, int y, int sizex, int sizey) {
@@ -210,5 +210,64 @@ class platformManager extends entity {
         }
         return "";
 	}
+
+	public boolean getGems(int x, int y, int sizex, int sizey) {
+		int[][] tiles=level.get(selected).level;
+        ArrayList<int[]> map = level.get(selected).gems;
+
+        int[][] cords=new int[map.size()][2];
+        for (int i=0;i<map.size();i++){
+            // System.out.println(map.get(i));
+            int[] c=map.get(i);
+            // System.out.println(c);
+            cords[i]=c;
+        }
+        int blockWidth = w.width / (tiles[0].length);
+        int blockHeight = blockWidth;
+
+
+
+        // top left
+        int blockonXtl = (x / blockWidth);
+        int blockonYtl = (y + yoffset) / blockHeight;
+
+        // top right
+        int blockonXtr = ((x + sizex) / blockWidth);
+        int blockonYtr = (y + yoffset) / blockHeight;
+
+        // bottom right
+        int blockonXbr = ((x + sizex) / blockWidth);
+        int blockonYbr = (y + yoffset + sizey) / blockHeight;
+        
+        // bottom left
+        int blockonXbl = ((x) / blockWidth);
+        int blockonYbl = (y + yoffset + sizey) / blockHeight;
+
+        for(int i=0;i<cords.length;i++){
+            if(cords[i][0]==blockonYtl&&cords[i][1]==blockonXtl){
+                map.remove(i);
+                return true;
+            }
+
+            if(cords[i][0]==blockonYtr&&cords[i][1]==blockonXtr){
+                map.remove(i);
+                return true;
+            }
+            if(cords[i][0]==blockonYbr&&cords[i][1]==blockonXbr){
+                map.remove(i);
+                return true;
+            }
+            if(cords[i][0]==blockonYbl&&cords[i][1]==blockonXbl){
+                map.remove(i);                                                          
+                return true;
+            }
+
+
+        }
+        return false;
+    }
+    
+
+
 
 }

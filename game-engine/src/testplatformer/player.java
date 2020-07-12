@@ -13,6 +13,12 @@ public class player extends entity {
     platformManager platforms;
     int jumps=2;
     boolean canjump=true;
+    int gems=0;
+
+    int maxHealth=100;
+    int health=100;
+
+
     public player(int x, int y, scene s, window w, String name, platformManager p) {
         super(x, y, 50, 50, s, w, name);
         xspd = 0;
@@ -20,7 +26,6 @@ public class player extends entity {
         acc = 2;
         grav = 3;
         platforms = p;
-
     }
 
     @Override
@@ -29,6 +34,11 @@ public class player extends entity {
 
         if(w.input.get('r')){
             platforms.load();
+        }
+
+
+        if(w.input.get('t')){
+            health-=1;
         }
         // acceleration
         yspd+=grav;
@@ -64,6 +74,8 @@ public class player extends entity {
             String l=platforms.DoorCol(x, y, sizex,sizey);
             if(l!=""){
                 platforms.room(l);
+                xspd=0;
+                yspd=0;
             }
         }
 
@@ -94,11 +106,18 @@ public class player extends entity {
         if(xspd>maxspd){
             xspd=maxspd;
         }
+
+
         
         
         // moving player
         x += xspd;
         y += yspd;
+
+        // colecting gems
+        if(platforms.getGems(x, y, sizex,sizey)){
+            gems++;
+        }
 
         // moving cammera
         if(y<100){
@@ -146,7 +165,13 @@ public class player extends entity {
 
     @Override
     public void key() {
+        if(w.input.Lastkey=='r'){
+            gems=0;
 
+            maxHealth=100;
+            health=100;
+
+        }
     }
 
 }

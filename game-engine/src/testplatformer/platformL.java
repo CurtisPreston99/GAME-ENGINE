@@ -10,7 +10,7 @@ public class platformL {
     int[][] level;
     ArrayList<int[]> gems= new ArrayList<int[]>();
     ArrayList<JSONObject> doors= new ArrayList<JSONObject>();
-
+    ArrayList<defultEm> enemies = new ArrayList<defultEm>(); 
 
     public platformL(JSONObject l){
         JSONArray lev= l.getJSONArray("map");
