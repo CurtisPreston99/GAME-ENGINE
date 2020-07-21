@@ -13,6 +13,7 @@ public class player extends entity {
     platformManager platforms;
     int jumps=2;
     boolean canjump=true;
+    boolean canRchange=true;
     int gems=0;
 
     int maxHealth=100;
@@ -72,11 +73,14 @@ public class player extends entity {
 
         if (w.input.get('s')) {
             String l=platforms.DoorCol(x, y, sizex,sizey);
-            if(l!=""){
+            if(l!=""&&canRchange){
                 platforms.room(l);
                 xspd=0;
                 yspd=0;
+                canRchange=false;
             }
+        }else{
+            canRchange=true;
         }
 
         // platform colition

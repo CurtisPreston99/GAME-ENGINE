@@ -13,6 +13,7 @@ public abstract class entity {
 	public String name;
 	protected HashMap<String, String> atributes = new HashMap<String, String>();
 	public window w;
+	public scene s;
 
 	public void setAtrribute(final String name, final String val) {
 		atributes.put(name, val);
@@ -39,6 +40,7 @@ public abstract class entity {
 		this.sizex = sizex;
 		this.sizey = sizey;
 		this.name = name;
+		this.s=s;
 	}
 
 	public Boolean collide(final entity e) {

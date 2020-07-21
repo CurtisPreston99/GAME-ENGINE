@@ -30,9 +30,9 @@ class platformManager extends entity {
     public void load() {
         try {
             json = w.Loader.loadJSON("testplatformer");
-            for (Object s : json.keys()) {
+            for (Object i : json.keys()) {
                 System.out.println(s.toString());
-                level.put(s.toString(), new platformL(json.getJSONObject(s.toString())));
+                level.put(i.toString(), new platformL(json.getJSONObject(i.toString()),s,w,this));
             }
         } catch (Exception e) {
             // TODO Auto-generated catch block
