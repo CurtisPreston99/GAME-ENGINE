@@ -1,7 +1,30 @@
-wget https://repo1.maven.org/maven2/org/junit/platform/junit-platform-console-standalone/1.0.0-M4/junit-platform-console-standalone-1.0.0-M4.jar -O testing.jar
-
-javac -cp .:"/home/curtis/gitkraken/GAME-ENGINE/game-engine/src/lib/*" game-engine/src/engine/cgel/cgelTests.java -Xmaxwarns 1
+cd game-engine/src
 
 
-java -jar testing.jar --class-path game-engine/src/ --scan-class-path --reports-dir .
+# compile all tests
 
+# number of files
+n=$(($(ls -l tests| grep -v ^l | wc -l)-1))
+
+testN=0
+
+pwd
+
+for i in $(ls tests)
+do	
+	# conting tests
+    c=$(grep -c "@Test" ./tests/$i)
+    testN=$(($testN+$c))
+
+    # compiling test
+    javac -cp lib/*:. tests/$i
+done
+
+echo $testN
+# run tests
+java -cp lib/*:. org.junit.platform.console.ConsoleLauncher -p tests
+
+
+
+# remove all compiled .class files
+find . -name "*.class" -type f|xargs rm -f

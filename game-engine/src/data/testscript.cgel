@@ -1,4 +1,4 @@
-function init{
+function init(){
     x=10;
         y=5;
         //mmm//
@@ -12,7 +12,7 @@ function init{
 }
 }
 
-function mathTest{
+function mathTest(){
         x=y;
         y=z+2;
         //mmm//
@@ -24,4 +24,14 @@ function mathTest{
 function gettwo(){
         i=2;
         return i;
+}
+
+
+function returnTest(){
+        return(10);
+}
+
+
+function returnMathTest(){
+        x = 10+returnTest();
 }

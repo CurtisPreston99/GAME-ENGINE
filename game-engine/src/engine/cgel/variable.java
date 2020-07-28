@@ -2,9 +2,13 @@ package engine.cgel;
 
 import java.util.regex.Pattern;
 
+import javax.lang.model.type.NullType;
+
 public class variable {
     int type;
+    public boolean returnS=false;
     Object Value;
+
     public variable(int type,Object value){
         this.type=type;
         this.Value=value;
@@ -57,7 +61,10 @@ public class variable {
     };
     public variable(double d) {
         this((float)d);
-	}
+    }
+    public Boolean isNull(){
+        return type==-1;
+    }
 	public Boolean isInt(){
         return type==0;
     }
@@ -96,6 +103,11 @@ public class variable {
             return false;
         }
     }
+
+    public boolean equals(int arg0) {
+        return type==0 && (int)Value==arg0;
+    }
+
     public String ValString(){
         switch (type) {
             case 0:

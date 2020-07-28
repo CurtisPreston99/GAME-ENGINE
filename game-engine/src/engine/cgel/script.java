@@ -21,7 +21,6 @@ public class script {
     script(String file, cgel l) throws Exception {
             String f = l.l.loadTxt(file);
             File=file;
-            System.out.println(f);
             parseScript(f);
     }
     script(String script) {
@@ -29,7 +28,6 @@ public class script {
     }
 
     private void parseScript(String s){
-        System.out.print(s);
         String[] methodStrings=s.split("function");
         for(String i : methodStrings){
             if(i.trim().length() > 0){
@@ -50,9 +48,9 @@ public class script {
         return methodArray;
     }
 
-    public int runMethod(String name,HashMap<String,variable>  var){
-        methods.get(name).execute(var, STDfunctions);
-        return 0;
+    public variable runMethod(String name,HashMap<String,variable>  var){
+        variable r = methods.get(name).execute(var, STDfunctions);
+        return r;
         
     }
 }

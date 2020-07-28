@@ -3,6 +3,10 @@ package tests;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.HashMap;
 import org.junit.jupiter.api.Test;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 
 import engine.cgel.cgel;
@@ -12,53 +16,45 @@ import engine.editor.editor;
 import processing.core.PApplet;
 
 
-@DisplayName("CGLE test Cases")
 class cgelTests {
+    editor e;
+    cgel s;
+
+    @BeforeEach
+    public void initObjects() {
+        e = new editor();
+        String[] args = {"arg"};
+        PApplet.runSketch(args, e);
+        s=new cgel(e);
+    }
+
+
+    @After
+    public void removeObj() {
+        e.exit();
+    }
 
     @DisplayName("loadscriptFail")
     @Test
     public void loadscriptFail() {
-        editor e = new editor();
-        String[] args = {
-            "arg"
-        };
-        PApplet.runSketch(args, e);
-        cgel s = new cgel(e);
         script load = s.loadScript("notafile");
-        e.exit();
         assertTrue(load == null);
     }
     @DisplayName("loadscriptPass")
     @Test
     public void loadscriptass() {
-        editor e = new editor();
-        String[] args = {
-            "arg"
-        };
-        PApplet.runSketch(args, e);
-        cgel s = new cgel(e);
         script load = s.loadScript("./data/testscript.cgel");
-        System.out.print(load);
+        // System.out.print(load);
 
-
-        e.exit();
         assertTrue(load != null);
     }
 
     @DisplayName("splitting functions")
     @Test
     public void scriptFunctionSplit() {
-        editor e = new editor();
-        String[] args = {
-            "arg"
-        };
-        PApplet.runSketch(args, e);
-        cgel s = new cgel(e);
         script load = s.loadScript("./data/testscript.cgel");
 
-        e.exit();
-        PApplet.printArray(load.getMethods());
-        System.out.println("no");
+        // System.out.println("no");
         assertTrue(load.getMethods().length>0);
 
     }
@@ -66,16 +62,8 @@ class cgelTests {
     @DisplayName("making varables")
     @Test
     public void variableInits() {
-        editor e = new editor();
-        String[] args = {
-            "arg"
-        };
-        PApplet.runSketch(args, e);
-        cgel s = new cgel(e);
         script load = s.loadScript("./data/testscript.cgel");
         
-        e.exit();
-        PApplet.printArray(load.getMethods());
         HashMap<String,variable> vars = new HashMap<>();
         load.runMethod("init", vars);
         HashMap<String,variable> correct = new HashMap<>();
@@ -89,8 +77,8 @@ class cgelTests {
         correct.put("BooltestFa",new variable(false));
         correct.put("SpaceString",new variable("\"test String with a space\""));
 
-        System.out.println(vars);
-        System.out.println(correct);
+        // System.out.println(vars);
+        // System.out.println(correct);
 
         assertTrue(correct.equals(vars));
     }
@@ -98,16 +86,8 @@ class cgelTests {
     @DisplayName("doing math")
     @Test
     public void variableMath() {
-        editor e = new editor();
-        String[] args = {
-            "arg"
-        };
-        PApplet.runSketch(args, e);
-        cgel s = new cgel(e);
         script load = s.loadScript("./data/testscript.cgel");
         
-        e.exit();
-        PApplet.printArray(load.getMethods());
         HashMap<String,variable> vars = new HashMap<>();
         load.runMethod("init", vars);
         load.runMethod("mathTest", vars);
@@ -126,6 +106,31 @@ class cgelTests {
         System.out.println(vars);
         System.out.println(correct);
         assertTrue(correct.equals(vars));
+    }
+
+
+    @DisplayName("function return variable")
+    @Test
+    public void returnVar() {
+        script load = s.loadScript("./data/testscript.cgel");
+        
+        HashMap<String,variable> vars = new HashMap<>();
+        variable r= load.runMethod("returnTest", vars);
+        System.out.println(r);
+
+        assertTrue(r.equals(10));
+    }
+
+    @DisplayName("function return variable in equations")
+    @Test
+    public void funcReturnMath() {
+        script load = s.loadScript("./data/testscript.cgel");
+        
+        HashMap<String,variable> vars = new HashMap<>();
+        variable r= load.runMethod("returnMathTest", vars);
+        System.out.println(vars);
+
+        assertTrue(vars.get("x").equals(20));
     }
 
 

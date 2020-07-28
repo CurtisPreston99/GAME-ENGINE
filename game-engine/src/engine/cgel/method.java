@@ -19,11 +19,11 @@ class method extends executable {
         //remove white space
         meth = meth.replaceAll("\\s+(?=((\\\\[\\\\\"]|[^\\\\\"])*\"(\\\\[\\\\\"]|[^\\\\\"])*\")*(\\\\[\\\\\"]|[^\\\\\"])*$)", "");
         // get name
-        int nameEnd = meth.indexOf("{");
+        int nameEnd = meth.indexOf("(");
         methodName = meth.substring(0, nameEnd);
 
         // remove start and end brackets and remove comments
-        meth = meth.substring(nameEnd + 1, meth.length() - 1).replaceAll("//(.*?)//", "");
+        meth = meth.substring(nameEnd + 3, meth.length() - 1).replaceAll("//(.*?)//", "");
         // split by line/command
         methodLines = meth.split(";");
     }
@@ -37,88 +37,111 @@ class method extends executable {
 
     }
 
-    @Override
-    int execute(HashMap<String, variable> var, cgel cg) {
-        for (String line : methodLines) {
-            if (line.matches(".*?=.*")) {// if setting a variable in format name=value or name=equation
+    public variable evaluate(String line,HashMap<String, variable> var, cgel cg){
+        String[] math = line.split("(?<=[-+*/])|(?=[-+*/])");
+        if (math.length == 1 || (math[0].matches("-") && math.length == 2)) {//if single opritave
 
-                String[] parts = line.split("=");// split name from setting part
-                String[] math = parts[1].split("(?<=[-+*/])|(?=[-+*/])");
+            if(var.get(math[0])!=null){//if var
+                return new variable(var.get(math[0]));// set variable
+            }
 
-                if (math.length == 1 || (math[0].matches("-") && math.length == 2)) {
+            if(math[0].matches("-") && var.get(math[1])!=null){//if -var
+                return new variable(var.get(math[0]));
+            }
+            if (line.matches("-?[0-9]+")) {//if int
+                return new variable(Integer.parseInt(line));//so that it doesnt get counted as another type
+            }
+            if (line.matches("[-+]?[0-9]*\\.?[0-9]+")) {//if float
+                return new variable(Float.parseFloat(line));
+            }
+            if (line.matches("\".*?\"")) {//if string
+                return new variable(math[0]);
+            }
+            if (line.equals("False")) {//if false boolean
+                return new variable(false);
+            }
+            if (line.equals("True")) {//if true boolean
+                return new variable(true);
+            }
+        }else{
+        // isnt just setting and needs to work out value
+            // substituting variable names with values;
+            for(int i=0;i<math.length;i++){
+                String st = math[i];
+                // System.out.println(s);
+                if(var.get(st)!=null){//if var
+                    math[i]=var.get(st).ValString();
+                }
+                if(st.matches("^-?[0-9][0-9,.]+$")){
+                    // System.out.println("number");
+                    
+                }
+                if(st.matches("[-+*/]")){
+                    // System.out.println("mathfunction");
+                }
+                if(st.matches("[a-zA-Z][a-zA-Z0-9]+\\((.)*\\)")){
+                    variable tmp=s.runMethod(st.substring(0,st.length()-2), var);
+                    System.out.println(tmp);
+                    math[i]=tmp.ValString();
 
-                    if(var.get(math[0])!=null){//if var
-                        var.put(parts[0], new variable(var.get(math[0])));// set variable
-                        continue;
-                    }
+                    
+                }
+            }
+            String eq="";
+            for(int i=0;i<math.length;i++){
+                eq+=math[i];
+            }
+            System.out.println(Arrays.toString(math));
+            System.out.println(eq);
 
-                    if(math[0].matches("-") && var.get(math[1])!=null){//if -var
-                        var.put(parts[0], new variable(var.get(math[0])));// set variable
-                        continue;
-                    }
-                    if (parts[1].matches("-?[0-9]+")) {//if int
-                        var.put(parts[0], new variable(Integer.parseInt(parts[1])));// set variable
-                        continue;//so that it doesnt get counted as another type
-                    }
-                    if (parts[1].matches("[-+]?[0-9]*\\.?[0-9]+")) {//if float
-                        var.put(parts[0], new variable(Float.parseFloat(parts[1])));// set variable
-                        continue;
-                    }
-                    if (parts[1].matches("\".*?\"")) {//if string
-                        var.put(parts[0], new variable(math[0]));// set variable
-                        continue;
-                    }
-                    if (parts[1].equals("False")) {//if false boolean
-                        var.put(parts[0], new variable(false));
-                        continue;
-                    }
-                    if (parts[1].equals("True")) {//if true boolean
-                        var.put(parts[0], new variable(true));
-                        continue;
-                    }
-                }else{
-                // isnt just setting and needs to work out value
-                    System.out.println("math line");
-                    System.out.println(Arrays.toString(math));
-                    // substituting variable names with values;
-                    for(int i=0;i<math.length;i++){
-                        String s = math[i];
-                        System.out.println(s);
-                        if(var.get(s)!=null){//if var
-                            math[i]=var.get(s).ValString();
-                        }
-                        if(s.matches("^-?[0-9][0-9,.]+$")){
-                            System.out.println("number");
-                            
-                        }
-                        if(s.matches("[-+*/]")){
-                            System.out.println("mathfunction");
-                        }
-                        if(s.matches(".*?/(.*?/)")){
-                            System.out.println("functioncall");
-                        }
-                    }
-                    String eq="";
-                    for(int i=0;i<math.length;i++){
-                        eq+=math[i];
-                    }
-                    System.out.println(Arrays.toString(math));
-                    System.out.println(eq);
+            System.out.println("out1");
+            Expression e = new ExpressionBuilder(eq).build();
+            // System.out.println(e.evaluate());
+            double out=e.evaluate();
+            if(out==Math.ceil(out)){
+                return new variable((int)Math.ceil(out));
 
-                    System.out.println("out1");
-                    Expression e = new ExpressionBuilder(eq).build();
-                    // System.out.println(e.evaluate());
-                    double out=e.evaluate();
-                    if(out==Math.ceil(out)){
-                        var.put(parts[0], new variable((int)Math.ceil(out)));
+            }else{
+                return new variable(e.evaluate());
+            }
+        }
+        return new variable(-1,null);
+    }
 
-                    }else{
-                        var.put(parts[0], new variable(e.evaluate()));
-                    }
+    public variable executeLine(String line,HashMap<String, variable> var, cgel cg) {
+        if (line.matches(".*?=.*")) {// if setting a variable in format name=value or name=equation
+
+            String[] parts = line.split("=");// split name from setting part
+            variable c =evaluate(parts[1],var,cg);
+            var.put(parts[0],c);
+            // if isnt setting value 
+        }else{
+            if(line.matches("[a-zA-Z][a-zA-Z0-9]+((.)*)")){
+                // is a return statement\
+
+                if(line.matches("return((.)*)")){
+                    System.out.println("true");
+                    variable v= evaluate(line.subSequence(7, line.length()-1).toString(), var, cg);
+                    v.returnS=true;
+                    return v;
                 }
             }
         }
-        return 0;
+        return new variable(-1,null);
+        
+    }
+
+
+    @Override
+    public variable execute(HashMap<String, variable> var, cgel cg) {
+        for (String line : methodLines) {
+            variable c =executeLine(line,var,cg);
+            if(c.returnS){
+                c.returnS=false;
+                return c;
+            }
+        }
+        return new variable(-1,null);
     }
 
 
