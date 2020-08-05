@@ -49,9 +49,6 @@ public class scene {
 		for (UIelement e : UIentities.values()) {
 			e.update(Parrent);
 		}
-		if (Parrent.mousePressed) {
-			click();
-		}
 		tick();
 	}
 
@@ -59,9 +56,15 @@ public class scene {
 		for (entity e : UIentities.values()) {
 			e.key();
 		}
+		for (entity e : entities.values()) {
+			e.key();
+		}
 	}
 
 	public void click() {
+		for (entity e : entities.values()) {
+			e.click();
+		}
 		for (entity e : UIentities.values()) {
 			e.click();
 		}
