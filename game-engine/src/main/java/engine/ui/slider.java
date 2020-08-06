@@ -33,7 +33,8 @@ public class slider extends UIelement {
         if (slider == 0) {
             return 0;
         }
-        Float value = (slider / sizex) * (maxVal - minVal) + minVal;
+        // Float value = (slider / sizex) * (maxVal - minVal) + minVal;
+        Float value=mapRange(0,sizex,minVal,maxVal,slider);
 
         return value;
 
@@ -51,6 +52,7 @@ public class slider extends UIelement {
         b.fill(colors.c_light);
         b.rect(x, y + sizey / 2, sizex, 4, 2);
         float pos = mapRange(minVal, maxVal, 0, sizex, slider);
+        pos=slider;
         b.fill(colors.c_hover);
         b.rect(x, y + sizey / 2, pos, 4, 2);
 
@@ -59,15 +61,13 @@ public class slider extends UIelement {
             b.fill(colors.c_hover);
             if (clicked) {
                 b.fill(colors.c_hover, 100);
-                b.ellipse(pos, y + sizey / 2, sizex, sizex);
-                b.fill(colors.c_hover);
-                b.ellipse(pos, y + sizey / 2, sizey - 8, sizey - 8);
             } else {
                 b.fill(colors.c_hover, 50);
-                b.ellipse(pos + x, y + sizey / 2, sizey, sizey);
-                b.fill(colors.c_hover);
-                b.ellipse(pos + x, y + sizey / 2, sizey - 8, sizey - 8);
+            
             }
+            b.ellipse(pos + x, y + sizey / 2, sizey, sizey);
+            b.fill(colors.c_hover);
+            b.ellipse(pos + x, y + sizey / 2, sizey - 8, sizey - 8);
         }
         // Normal
         else {
@@ -80,6 +80,15 @@ public class slider extends UIelement {
 
     @Override
     public void update(window w) {
+        if(clicked){
+            if (w.input.Mouse.left) {
+                clicked = true;
+                if (w.mouseX >= x && w.mouseX <= x + sizex && w.mouseY >= y && w.mouseY <= y + sizey) {
+                    slider = w.mouseX-x;
+                    slider = slider<=0? 1: slider;
+                }
+            }
+        }
 
     }
 
@@ -89,7 +98,8 @@ public class slider extends UIelement {
         if (w.input.Mouse.left) {
             clicked = true;
             if (w.mouseX >= x && w.mouseX <= x + sizex && w.mouseY >= y && w.mouseY <= y + sizey) {
-                slider = mapRange(x, x + sizex, minVal, maxVal, w.mouseX);
+                slider = w.mouseX-x;
+                slider = slider<=0? 1: slider;
 
             }
         }
