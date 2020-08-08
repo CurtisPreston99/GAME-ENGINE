@@ -65,6 +65,12 @@ public class dropdown extends UIelement {
 
     }
 
+    public void select(int i){
+        if(i>0 && i<options.length){
+            selected=i;
+        }
+    }
+
     @Override
     public void click() {
         mouse mouse =w.input.Mouse;
@@ -77,7 +83,8 @@ public class dropdown extends UIelement {
             }else{
             if(down&& Mx>x&&Mx<x+sizex){
                 int Ny=(My-(y+sizey))/sizey;
-                if(Ny<options.length){
+                if(Ny<options.length && Ny>=0){
+                    down=false;
                     // System.out.println(Ny);
                     // System.out.println(options[Ny]);
                     selected=Ny;
@@ -89,6 +96,15 @@ public class dropdown extends UIelement {
             canDrop=true;
         }
 
+    }
+
+    public boolean isDown() {
+        return down;
+    }
+
+
+    public String getSelected() {
+        return options[selected];
     }
 
     @Override

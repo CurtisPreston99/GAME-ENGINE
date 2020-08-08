@@ -51,11 +51,11 @@ public class helper extends window {
 
 	@Override
 	public void setup() {
-		try {
-			spriteGroup s = spriteGroup.JSONload(Loader.loadJSON("grouptest"), this);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		// try {
+		// 	spriteGroup s = spriteGroup.JSONload(Loader.loadJSON("grouptest"), this);
+		// } catch (Exception e) {
+		// 	e.printStackTrace();
+		// }
 
 
 	}
